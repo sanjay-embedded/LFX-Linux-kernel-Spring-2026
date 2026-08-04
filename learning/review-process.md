@@ -33,3 +33,22 @@ Key observations:
 **Related Series**
 
 - Series 002 – SSP Sensors: Resource Cleanup & Driver Modernization
+
+---
+
+## Scope Changes Can Improve Acceptance
+
+A larger patch series is not always the best submission unit.
+
+While modernizing the GC0310 camera sensor driver, the initial proposal combined cleanup work with a functional improvement. Reviewer feedback recommended isolating the functional change, allowing it to be reviewed independently and merged without waiting for unrelated cleanup patches.
+
+Key observations:
+
+- Submit one logical improvement per patch or series.
+- Functional enhancements generally deserve independent review.
+- Subsystem helper APIs simplify maintenance and improve consistency.
+- Partial acceptance of a larger series is a positive outcome and often forms the basis for future follow-up work.
+
+**Related Series**
+
+- Series 003 – GC0310 Clock Modernization
