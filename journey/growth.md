@@ -39,3 +39,17 @@ The experience reinforced the value of incremental development, reviewer collabo
 **Related Series**
 
 - Series 002 – SSP Sensors: Resource Cleanup & Driver Modernization
+
+---
+
+## April – July 2026: Applying Upstream Review Experience Across Subsystems
+
+After several review cycles in the IIO subsystem, the same review principles were successfully applied to the Media subsystem.
+
+An initial three-patch modernization series for the GC0310 camera sensor driver was refined following maintainer feedback, separating the functional clock-management improvement from unrelated cleanup work. The resulting focused patch adopted the `devm_v4l2_sensor_clk_get()` helper and was accepted into linux-next.
+
+This milestone demonstrated that upstream development practices—such as patch scoping, incremental improvements, and subsystem-specific helper adoption—are transferable across Linux kernel subsystems.
+
+**Related Series**
+
+- Series 003 – GC0310 Clock Modernization
