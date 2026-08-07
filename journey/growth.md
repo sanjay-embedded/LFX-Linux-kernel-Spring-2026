@@ -53,3 +53,15 @@ This milestone demonstrated that upstream development practices—such as patch 
 **Related Series**
 
 - Series 003 – GC0310 Clock Modernization
+
+---
+
+## April 2026 – Learning When Not to Change Code
+
+While working on cleanup patches for the AD7173 ADC driver, review discussions highlighted that not every warning reported by automated tooling represents a defect in the driver.
+
+A discussion around `checkpatch.pl` and SI unit naming demonstrated the importance of understanding the intent behind coding standards rather than applying mechanical fixes. The series concluded without further revisions, but it reinforced the value of engineering judgment and reviewer expertise when evaluating automated analysis results.
+
+**Related Series**
+
+- Series 004 – AD7173 Checkpatch Analysis
