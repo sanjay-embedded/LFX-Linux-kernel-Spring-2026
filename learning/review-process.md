@@ -52,3 +52,22 @@ Key observations:
 **Related Series**
 
 - Series 003 – GC0310 Clock Modernization
+
+---
+
+## Static Analysis Tools Support Review, They Do Not Replace It
+
+Automated tools such as `checkpatch.pl` are designed to help identify potential issues, but their output should always be interpreted in context.
+
+During review of the AD7173 cleanup series, a reported CamelCase warning was found to be caused by a limitation in `checkpatch.pl` rather than incorrect kernel code. Reviewers preferred preserving technically correct SI unit notation instead of modifying code solely to satisfy the tool.
+
+Key observations:
+
+- Investigate every warning before proposing a fix.
+- Understand subsystem conventions and domain-specific terminology.
+- Preserve technically correct code even when tooling produces false positives.
+- Consider improving tooling when repeated false positives are identified.
+
+**Related Series**
+
+- Series 004 – AD7173 Checkpatch Analysis
