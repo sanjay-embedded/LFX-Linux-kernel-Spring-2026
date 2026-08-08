@@ -109,3 +109,17 @@ This demonstrated that series size should follow logical ownership and reviewabi
 **Related Series**
 
 - [Series 005 – MMA8452 modernization](../patch-series/series-005-mma8452-modernization.md)
+
+---
+
+## Always Check the Subsystem Development Tree
+
+Before preparing a new patch series or revision, check the current subsystem development branch for related changes.
+
+During the ADXL313 cleanup work, one proposed `guard()` conversion was already present in `iio/testing`. The change was therefore dropped and the remaining work was rebased onto the current subsystem tree.
+
+This avoids duplicate submissions and ensures that new work is developed on top of the changes maintainers are already integrating.
+
+**Related Series**
+
+- Series 006 – ADXL Accelerometer Cleanup
