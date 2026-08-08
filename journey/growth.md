@@ -30,7 +30,7 @@ The series evolved through reviewer feedback from Andy Shevchenko, Jonathan Came
 
 ## March – May 2026: Managing a Long-Running Upstream Series
 
-The SSP Sensors modernization became one of the longest-running review efforts during the mentorship. What began as a resource cleanup gradually evolved into a broader driver modernization initiative through seven revisions.
+The SSP Sensors modernization became one of the longest-running review efforts during the mentorship. What began as a resource cleanup gradually evolved into a broader driver modernization initiative.
 
 Continuous feedback from Jonathan Cameron, Andy Shevchenko, David Lechner, and other reviewers expanded the work beyond cleanup to include managed resource APIs, helper abstractions, probe-path improvements, and maintainability enhancements.
 
@@ -65,3 +65,19 @@ A discussion around `checkpatch.pl` and SI unit naming demonstrated the importan
 **Related Series**
 
 - Series 004 – AD7173 Checkpatch Analysis
+
+---
+
+## April – August 2026: From Cleanup to Correctness
+
+The MMA8452 work began as a focused PM modernization but evolved through five revisions into a broader driver modernization effort.
+
+During review and self-review, the work expanded to resource lifetime, IRQ management, regulator handling, IIO cleanup helpers and error propagation. Importantly, the modernization process exposed race conditions that required correction.
+
+The series also demonstrated how upstream work evolves after partial acceptance: individual patches were accepted independently, while the remaining changes were reduced and continued through subsequent revisions.
+
+This strengthened my understanding that kernel cleanup is not only about adopting newer APIs; it requires understanding concurrency, resource ordering, subsystem infrastructure and how maintainers consume individual patches.
+
+**Related Series**
+
+- [Series 005 – MMA8452 modernization](../patch-series/series-005-mma8452-modernization.md)

@@ -71,3 +71,41 @@ Key observations:
 **Related Series**
 
 - Series 004 – AD7173 Checkpatch Analysis
+
+---
+
+## Cleanup Can Expose Correctness Issues
+
+Cleanup and modernization work can reveal existing correctness problems that are not obvious from the original change.
+
+During the MMA8452 work, changes to PM and resource handling exposed race conditions that became part of the review priority.
+
+This reinforced the importance of understanding the driver's complete lifecycle rather than treating modernization as a mechanical API conversion.
+
+**Related Series**
+
+- [Series 005 – MMA8452 modernization](../patch-series/series-005-mma8452-modernization.md)
+
+
+## Managed Resources Require Lifetime Analysis
+
+The `devm_*` APIs should not be adopted solely because they reduce cleanup code.
+
+Resource ownership, teardown order and error-path ordering must first be understood. In the MMA8452 driver, IRQ lifetime and resource ordering influenced the decision to use explicit management rather than simply converting everything to `devm_*`.
+
+**Related Series**
+
+- [Series 005 – MMA8452 modernization](../patch-series/series-005-mma8452-modernization.md)
+
+
+## Large Series Should Be Continuously Reduced
+
+A large series does not need to remain the same size throughout review.
+
+The MMA8452 work expanded when investigation revealed additional issues, but later became smaller as individual patches were accepted independently.
+
+This demonstrated that series size should follow logical ownership and reviewability rather than remain fixed from the initial submission.
+
+**Related Series**
+
+- [Series 005 – MMA8452 modernization](../patch-series/series-005-mma8452-modernization.md)
