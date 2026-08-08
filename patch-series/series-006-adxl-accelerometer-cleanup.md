@@ -180,14 +180,14 @@ The `guard()` conversion was not retained merely because it was part of the orig
 
 ### Mainline Commits
 
-- `d2ed8a2f630abe69d87eeffb2781df9237d7c1dd`
-- `c27837e49fd1fa0eae1b6d3988d2ae5a9d924739`
-- `1ed49c5e6b6da868ff226706d54919e1e10cf991`
-- `07fd62916c7d2adb65926b989d337c7bfc7b2357`
-- `70cc2c65c23ba212c6de61a727131ebf94a66610`
-- `f710a0fa462ce5fc356ab4a77787b49fc1f47f7b`
-- `24ab1d9a2fc4c1e4f2546bebcee2b420295120a0`
-- `d47d6bdc81cfe56a1e7af40528ac81162a547e1b`
+- [d2ed8a2f630abe69d87eeffb2781df9237d7c1dd](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=d2ed8a2f630abe69d87eeffb2781df9237d7c1dd)
+- [c27837e49fd1fa0eae1b6d3988d2ae5a9d924739](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=c27837e49fd1fa0eae1b6d3988d2ae5a9d924739)
+- [1ed49c5e6b6da868ff226706d54919e1e10cf991](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=1ed49c5e6b6da868ff226706d54919e1e10cf991)
+- [07fd62916c7d2adb65926b989d337c7bfc7b2357](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=07fd62916c7d2adb65926b989d337c7bfc7b2357)
+- [70cc2c65c23ba212c6de61a727131ebf94a66610](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=70cc2c65c23ba212c6de61a727131ebf94a66610)
+- [f710a0fa462ce5fc356ab4a77787b49fc1f47f7b](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=f710a0fa462ce5fc356ab4a77787b49fc1f47f7b)
+- [24ab1d9a2fc4c1e4f2546bebcee2b420295120a0](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=24ab1d9a2fc4c1e4f2546bebcee2b420295120a0)
+- [d47d6bdc81cfe56a1e7af40528ac81162a547e1b](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=d47d6bdc81cfe56a1e7af40528ac81162a547e1b)
 
 ---
 
