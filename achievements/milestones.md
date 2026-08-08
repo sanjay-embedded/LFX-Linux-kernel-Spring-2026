@@ -39,3 +39,17 @@ The final series was accepted after incorporating reviewer feedback, synchronizi
 **Related Series**
 
 - [Series 006 – ADXL Accelerometer Cleanup](../patch-series/series-006-adxl-accelerometer-cleanup.md)
+
+---
+
+## May 2026 – ADI IIO Maintainer Coverage Accepted Upstream
+
+Contributed to a six-revision ADI IIO `MAINTAINERS` series that evolved from a stale contact correction into a broader examination of sustainable maintainer and mailing-list coverage.
+
+The final v6 series was reduced to two focused patches and both were accepted into mainline Linux.
+
+The work provided practical experience beyond driver implementation, including subsystem ownership, maintainer coverage, wildcard entries, review routing, and maintaining accurate `MAINTAINERS` metadata.
+
+**Related Series**
+
+- [Series 007 – ADI IIO MAINTAINERS Coverage](../patch-series/series-007-adi-iio-maintainers.md)

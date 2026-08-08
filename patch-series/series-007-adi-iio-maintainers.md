@@ -280,4 +280,98 @@ The reduction happened after reviewing actual ownership and eliminating changes 
 
 ## Review Summary
 
-{
+| Reviewer / Contributor | Main Contribution                                                                                    |
+| ---------------------- | ---------------------------------------------------------------------------------------------------- |
+| **Jonathan Cameron**   | Guided the maintenance model, mailing-list coverage, consolidation strategy, and specific ownership. |
+| **Nuno Sá**            | Provided ADI ownership information and suggested additional ADI IIO coverage updates.                |
+| **Andy Shevchenko**    | Reviewed the consolidation approach and scope of redundant `MAINTAINERS` entries.                    |
+| **Marcelo Schmitt**    | Helped identify active maintainers and distinguish genuine lack of ownership from broader coverage.  |
+
+---
+
+## Revision Timeline
+
+| Revision | Date        | Patches | Major Evolution                                              |
+| -------- | ----------- | ------- | ------------------------------------------------------------ |
+| **v1**   | 18 Apr 2026 | 1       | Correct outdated maintainer information.                     |
+| **v2**   | 19 Apr 2026 | 1       | Proposed individual maintainer ownership.                    |
+| **v3**   | 21 Apr 2026 | 1       | Shifted toward persistent mailing-list coverage.             |
+| **v4**   | 30 Apr 2026 | 5       | Expanded into ADI-wide `MAINTAINERS` consolidation.          |
+| **v5**   | 07 May 2026 | 2       | Reduced scope based on actual maintenance status.            |
+| **v6**   | 11 May 2026 | 2       | Finalized umbrella coverage and specific active maintainers. |
+
+---
+
+## Final Outcome
+
+## Final Outcome
+
+| Item | Status |
+|------|--------|
+| Final Revision | v6 |
+| Final Patch Count | 2 |
+| Files Modified | `MAINTAINERS` |
+| Mainline | ✅ Merged |
+| linux-next | Applied before mainline integration |
+| Final State | Both v6 patches accepted upstream |
+
+### Mainline Commits
+
+- [d350cb2b23aee0f9a5107e87dc80929f93a04b00](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=d350cb2b23aee0f9a5107e87dc80929f93a04b00)
+- [bdc573d5c33b90a21c3799c1b3f08dc8092188af](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=bdc573d5c33b90a21c3799c1b3f08dc8092188af)
+
+---
+
+## Key Lessons Learned
+
+* `MAINTAINERS` is about sustainable ownership and review coverage, not simply replacing outdated email addresses.
+* Verify the actual maintenance situation before changing ownership information.
+* Prefer durable project or subsystem mailing-list coverage when individual corporate addresses are not reliable.
+* Check existing wildcard entries before adding or retaining redundant per-driver entries.
+* Preserve specific maintainer information when an active maintainer exists.
+* Large metadata cleanups should be split into logically reviewable patches.
+* A series can legitimately expand during investigation and later become smaller as the actual scope becomes clearer.
+* Review metadata such as `Acked-by` should reflect the current patch content and should not be carried forward blindly when the patch changes substantially.
+
+---
+
+## Looking Back
+
+If starting this work today, I would:
+
+* Investigate existing umbrella `MAINTAINERS` entries before preparing the first patch.
+* Identify the actual current maintainers and reviewers before proposing ownership changes.
+* Separate stale-contact correction from broader consolidation earlier.
+* Check whether a mailing-list entry can provide sustainable coverage before assigning individual maintainer ship.
+* Build the consolidation around verified ownership rather than discovering ownership only during review.
+
+---
+
+## Related Series
+
+* [Series 000 – Exploratory cleanup.h](series-000-exploratory-cleanup-h.md)
+* [Series 001 – ST Sensors buffer reuse](series-001-st-sensors-buffer-reuse.md)
+* [Series 002 – SSP Sensors modernization](series-002-ssp-sensors-modernization.md)
+* [Series 003 – GC0310 clock modernization](series-003-gc0310-clock-modernization.md)
+* [Series 004 – AD7173 checkpatch analysis](series-004-ad7173-checkpatch-analysis.md)
+* [Series 005 – MMA8452 modernization](series-005-mma8452-modernization.md)
+* [Series 006 – ADXL accelerometer cleanup](series-006-adxl-accelerometer-cleanup.md)
+
+---
+
+## Related Learning
+
+* [Review Process](../learning/review-process.md)
+
+---
+
+## References
+
+### Lore
+
+* [v1](https://lore.kernel.org/all/20260418211336.1800221-1-sanjayembedded@gmail.com/)
+* [v2](https://lore.kernel.org/all/20260419173830.2802263-1-sanjayembedded@gmail.com/)
+* [v3](https://lore.kernel.org/all/20260421165856.2245598-1-sanjayembedded@gmail.com/)
+* [v4](https://lore.kernel.org/all/20260430190642.3434650-1-sanjayembedded@gmail.com/)
+* [v5](https://lore.kernel.org/all/20260507175132.3063161-1-sanjayembedded@gmail.com/)
+* [v6](https://lore.kernel.org/all/20260511171643.3173872-1-sanjayembedded@gmail.com/)
