@@ -74,24 +74,6 @@ Key observations:
 
 ---
 
-## Managing Large Multi-Revision Series
-
-The SSP Sensors series demonstrated that substantial upstream work often evolves through many revisions rather than reaching its final form immediately.
-
-Key observations:
-
-- Keep each patch logically independent.
-- Separate cleanup, functional changes, and refactoring whenever possible.
-- Allow reviewer feedback to reshape the implementation instead of defending the initial approach.
-- Maintain a clear revision history to help reviewers focus on incremental changes.
-- Plan hardware validation early for hardware-dependent drivers.
-
-**Related Series**
-
-- Series 002 – SSP Sensors: Resource Cleanup & Driver Modernization
-
----
-
 ## Cleanup Can Expose Correctness Issues
 
 Cleanup and modernization work can reveal existing correctness problems that are not obvious from the original change.
@@ -103,6 +85,44 @@ This reinforced the importance of understanding the driver's complete lifecycle 
 **Related Series**
 
 - [Series 005 – MMA8452 modernization](../patch-series/series-005-mma8452-modernization.md)
+
+
+## Managed Resources Require Lifetime Analysis
+
+The `devm_*` APIs should not be adopted solely because they reduce cleanup code.
+
+Resource ownership, teardown order and error-path ordering must first be understood. In the MMA8452 driver, IRQ lifetime and resource ordering influenced the decision to use explicit management rather than simply converting everything to `devm_*`.
+
+**Related Series**
+
+- [Series 005 – MMA8452 modernization](../patch-series/series-005-mma8452-modernization.md)
+
+
+## Large Series Should Be Continuously Reduced
+
+A large series does not need to remain the same size throughout review.
+
+The MMA8452 work expanded when investigation revealed additional issues, but later became smaller as individual patches were accepted independently.
+
+This demonstrated that series size should follow logical ownership and reviewability rather than remain fixed from the initial submission.
+
+**Related Series**
+
+- [Series 005 – MMA8452 modernization](../patch-series/series-005-mma8452-modernization.md)
+
+---
+
+## Always Check the Subsystem Development Tree
+
+Before preparing a new patch series or revision, check the current subsystem development branch for related changes.
+
+During the ADXL313 cleanup work, one proposed `guard()` conversion was already present in `iio/testing`. The change was therefore dropped and the remaining work was rebased onto the current subsystem tree.
+
+This avoids duplicate submissions and ensures that new work is developed on top of the changes maintainers are already integrating.
+
+**Related Series**
+
+- Series 006 – ADXL Accelerometer Cleanup
 
 ---
 
