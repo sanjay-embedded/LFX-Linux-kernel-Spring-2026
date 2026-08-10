@@ -171,3 +171,17 @@ This contribution reinforced an important upstream workflow: complete the initia
 **Related Series**
 
 - [Series 011 – HID-IIO `usage_id` Type Unification](../patch-series/series-011-hid-iio-usage-id.md)
+
+---
+
+## June – July 2026 – Learning to Reduce Patch-Series Scope
+
+The HID-IIO warning and coding-style series evolved from 11 patches in v1 to 6 in v2 and finally 2 focused patches in v3.
+
+Reviewer feedback highlighted that several formatting-only patches represented unnecessary churn. The series was subsequently consolidated, rebased against the current IIO development tree, and reduced to changes with clearer independent value.
+
+This reinforced an important upstream lesson: patch quality is not measured by the number of changes submitted. A smaller series with clear purpose, correct scope and low review overhead is often the stronger contribution.
+
+**Related Series**
+
+- [Series 012 – HID-IIO Warning and Coding-Style Cleanup](../patch-series/series-012-hid-iio-warning-cleanup.md)

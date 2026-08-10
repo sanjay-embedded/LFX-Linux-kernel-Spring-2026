@@ -105,3 +105,17 @@ The work aligned callback implementations with the HID sensor hub API and demons
 **Related Series**
 
 - [Series 011 – HID-IIO `usage_id` Type Unification](../patch-series/series-011-hid-iio-usage-id.md)
+
+---
+
+## July 2026 – HID-IIO Cleanup Refined and Applied in linux-next
+
+Refined a HID-IIO cleanup series through three revisions, reducing it from 11 patches to two focused changes based on maintainer and reviewer feedback.
+
+The final work was synchronized with the current IIO development tree and reached linux-next.
+
+The contribution demonstrated practical upstream skills in patch-series organization, review-driven scope reduction, subsystem rebasing and resource-ownership reasoning.
+
+**Related Series**
+
+- [Series 012 – HID-IIO Warning and Coding-Style Cleanup](../patch-series/series-012-hid-iio-warning-cleanup.md)
