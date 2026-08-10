@@ -91,3 +91,17 @@ The final v2 series removed unsupported `Fixes:` claims, refined the ordering ra
 **Related Series**
 
 - [Series 010 – HID-IIO Callback Ordering](../patch-series/series-010-hid-iio-callback-ordering.md)
+
+---
+
+## June 2026 – HID-IIO `usage_id` Cleanup Completed
+
+Completed a two-stage HID-IIO type-unification effort covering ten drivers.
+
+The initial seven-patch series and subsequent three-patch follow-up were reviewed and applied through the IIO development flow.
+
+The work aligned callback implementations with the HID sensor hub API and demonstrated a complete cleanup workflow: initial migration, post-application audit, identification of remaining instances, and focused follow-up.
+
+**Related Series**
+
+- [Series 011 – HID-IIO `usage_id` Type Unification](../patch-series/series-011-hid-iio-usage-id.md)

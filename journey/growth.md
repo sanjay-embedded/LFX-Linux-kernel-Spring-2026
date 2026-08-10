@@ -157,3 +157,17 @@ This was an important step in developing upstream debugging and review maturity:
 **Related Series**
 
 - [Series 010 – HID-IIO Callback Ordering](../patch-series/series-010-hid-iio-callback-ordering.md)
+
+---
+
+## June 2026 – Completing a Cross-Driver API Type Migration
+
+Unified `usage_id` types across ten HID-IIO drivers to match the `u32` type defined by the HID sensor hub callback API.
+
+The initial seven-patch series was reviewed and applied. A subsequent repository-wide audit identified three remaining drivers, which were submitted and applied as a focused follow-up series.
+
+This contribution reinforced an important upstream workflow: complete the initial focused change, audit the resulting tree, and use a small follow-up for remaining instances rather than reopening accepted work.
+
+**Related Series**
+
+- [Series 011 – HID-IIO `usage_id` Type Unification](../patch-series/series-011-hid-iio-usage-id.md)

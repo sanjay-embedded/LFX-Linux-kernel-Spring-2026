@@ -13,3 +13,4 @@
 | 008 | HID-IIO devm API & Resource-Management Modernization | Active / Split Workstream  | Apr–Aug 2026 | v1 → v5      | `HID-IIO`, `devm`, `devres`, `cleanup`, `guard`, `resource-management` |
 | 009 | IIO TODO Documentation & Resource-Management Guidance | Applied in linux-next      | Jun 2026     | v1 → v2      | `IIO`, `Documentation`, `TODO`, `resource-management`       |
 | 010 | HID-IIO Callback Setup & Device Exposure Ordering    | Applied in linux-next      | Jun 2026     | v1 → v2      | `HID-IIO`, `race`, `ordering`, `callback`, `IIO`, `correctness` |
+| 011 | HID-IIO `usage_id` Type Unification | Applied in linux-next | Jun 2026 | v1 → v2 + follow-up | `HID-IIO`, `usage_id`, `u32`, `API`, `type-cleanup` |

@@ -184,3 +184,40 @@ Key principles:
 **Related Series**
 
 - [Series 010 – HID-IIO Callback Ordering](../patch-series/series-010-hid-iio-callback-ordering.md)
+
+---
+
+## Audit the Tree After a Broad Cleanup
+
+A cleanup series should not be considered complete merely because all initially identified instances were changed.
+
+After applying the HID-IIO `usage_id` cleanup, a second repository-wide audit found three remaining callbacks using `unsigned int`.
+
+The remaining changes were submitted as a focused follow-up series.
+
+Useful workflow:
+
+Initial search
+    ↓
+Prepare focused series
+    ↓
+Submit / review / apply
+    ↓
+Search the tree again
+    ↓
+Identify remaining instances
+    ↓
+Focused follow-up
+
+
+This is particularly useful for:
+
+API migrations;
+type conversions;
+deprecated API removal;
+resource-management conversions;
+coding-style migrations.
+
+**Related Series**
+
+- [Series 011 – HID-IIO usage_id Type Unification](../patch-series/series-011-hid-iio-usage-id.md)
