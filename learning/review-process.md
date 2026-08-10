@@ -142,3 +142,23 @@ The ADI IIO work demonstrated how a simple contact correction can require unders
 **Related Series**
 
 - [Series 007 – ADI IIO MAINTAINERS Coverage](../patch-series/series-007-adi-iio-maintainers.md)
+
+---
+
+## Separate Common Infrastructure from Its Consumers
+
+When introducing a common API across many drivers, avoid combining the infrastructure change with every consumer conversion in one large series.
+
+The HID-IIO devm work initially expanded to 36 patches because it combined:
+
+- common cleanup;
+- API changes;
+- device handling;
+- infrastructure introduction;
+- multiple driver conversions.
+
+The later restructuring separated the common devm API from individual driver conversions, making each area independently reviewable.
+
+**Related Series**
+
+- [Series 008 – HID-IIO devm API and Resource-Management Modernization](../patch-series/series-008-hid-iio-devm-workstream.md)
