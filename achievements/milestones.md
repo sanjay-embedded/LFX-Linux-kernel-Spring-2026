@@ -77,3 +77,17 @@ The contribution evolved through two revisions and was applied in linux-next.
 **Related Series**
 
 - [Series 009 – IIO TODO Documentation](../patch-series/series-009-iio-todo-documentation.md)
+
+---
+
+## June 2026 – HID-IIO Callback Ordering Accepted in linux-next
+
+Developed an eight-patch HID-IIO ordering improvement addressing the relationship between callback setup and IIO device exposure.
+
+The initial series described a potential UAF/race condition. Maintainer review challenged the evidence for that claim, leading to investigation of the actual execution paths and refinement of the problem statement toward a possible sample-loss/stale-data window.
+
+The final v2 series removed unsupported `Fixes:` claims, refined the ordering rationale, and was applied to linux-next.
+
+**Related Series**
+
+- [Series 010 – HID-IIO Callback Ordering](../patch-series/series-010-hid-iio-callback-ordering.md)

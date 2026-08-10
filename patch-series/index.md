@@ -12,3 +12,4 @@
 | 007 | ADI IIO MAINTAINERS Coverage & Ownership             | Merged                     | Apr–May 2026 | v1 → v6      | MAINTAINERS, IIO, ADI, maintainers, coverage                 |
 | 008 | HID-IIO devm API & Resource-Management Modernization | Active / Split Workstream  | Apr–Aug 2026 | v1 → v5      | `HID-IIO`, `devm`, `devres`, `cleanup`, `guard`, `resource-management` |
 | 009 | IIO TODO Documentation & Resource-Management Guidance | Applied in linux-next      | Jun 2026     | v1 → v2      | `IIO`, `Documentation`, `TODO`, `resource-management`       |
+| 010 | HID-IIO Callback Setup & Device Exposure Ordering    | Applied in linux-next      | Jun 2026     | v1 → v2      | `HID-IIO`, `race`, `ordering`, `callback`, `IIO`, `correctness` |

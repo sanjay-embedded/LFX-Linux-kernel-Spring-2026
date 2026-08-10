@@ -162,3 +162,25 @@ The later restructuring separated the common devm API from individual driver con
 **Related Series**
 
 - [Series 008 – HID-IIO devm API and Resource-Management Modernization](../patch-series/series-008-hid-iio-devm-workstream.md)
+
+---
+
+## Prove the Failure Mode Before Claiming a Bug
+
+A code path that looks vulnerable is not necessarily evidence of a confirmed bug.
+
+When the HID-IIO callback ordering series was reviewed, maintainers challenged the original UAF/NULL-dereference claim. Investigation showed that the ordering problem was better characterized as a possible sample-loss/stale-data window.
+
+The final revision therefore weakened the claim while retaining the valid ordering improvement.
+
+Key principles:
+
+- Trace the actual execution path.
+- Identify who can access the object at each lifecycle stage.
+- Distinguish theoretical risk from demonstrated failure.
+- Use `Fixes:` only when a historical regression is established.
+- Let the commit message reflect the strongest claim supported by evidence.
+
+**Related Series**
+
+- [Series 010 – HID-IIO Callback Ordering](../patch-series/series-010-hid-iio-callback-ordering.md)

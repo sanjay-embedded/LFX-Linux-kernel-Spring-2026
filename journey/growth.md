@@ -141,3 +141,19 @@ This contribution demonstrated that upstream participation extends beyond driver
 **Related Series**
 
 - [Series 009 – IIO TODO Documentation](../patch-series/series-009-iio-todo-documentation.md)
+
+---
+
+## June 2026 – Refining a Bug Claim Through Review
+
+The HID-IIO callback ordering work initially described the problem as a race condition that could result in NULL dereference or use-after-free.
+
+During review, maintainers challenged whether the claimed failure mode could actually be demonstrated. Investigation of the IIO registration and HID callback paths showed that the more defensible concern was an exposure window that could result in dropped samples or stale data.
+
+The final v2 series therefore changed the problem statement, removed unsupported `Fixes:` tags, refined the commit-message rationale, and was applied to linux-next as eight patches.
+
+This was an important step in developing upstream debugging and review maturity: the implementation was not simply defended; the technical claim itself was revised to match the evidence.
+
+**Related Series**
+
+- [Series 010 – HID-IIO Callback Ordering](../patch-series/series-010-hid-iio-callback-ordering.md)
