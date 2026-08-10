@@ -221,3 +221,37 @@ coding-style migrations.
 **Related Series**
 
 - [Series 011 – HID-IIO usage_id Type Unification](../patch-series/series-011-hid-iio-usage-id.md)
+
+---
+
+## Optimize for Review Value, Not Patch Count
+
+A patch should provide enough independent value to justify its existence as a separate commit.
+
+The HID-IIO warning cleanup initially contained 11 patches, including several formatting-only changes. Review showed that splitting every small style change created unnecessary churn.
+
+The series was reduced to six patches and eventually two focused patches.
+
+A useful decision process is:
+
+```text
+Is the change logically independent?
+        |
+       Yes
+        ↓
+Does it provide meaningful review/history value?
+        |
+       Yes
+        ↓
+Keep as a separate patch
+
+       No
+        ↓
+Consider consolidating it
+```
+
+This does not mean combining unrelated changes. It means avoiding artificial fragmentation of changes that are naturally one cleanup.
+
+**Related Series**
+
+* [Series 012 – HID-IIO Warning and Coding-Style Cleanup](../patch-series/series-012-hid-iio-warning-cleanup.md)
