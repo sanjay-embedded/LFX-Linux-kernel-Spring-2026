@@ -113,3 +113,47 @@ This contribution expanded my understanding of upstream Linux beyond driver impl
 **Related Series**
 
 - [Series 007 – ADI IIO MAINTAINERS Coverage](../patch-series/series-007-adi-iio-maintainers.md)
+
+---
+
+## April – August 2026: Learning to Structure Cross-Driver Modernization
+
+The HID-IIO workstream became the largest and most structurally complex contribution effort during the mentorship.
+
+It began as a 10-patch API cleanup, expanded to 36 patches while exploring common device handling and driver conversions, and was ultimately restructured into a focused 13-patch parent series with related driver conversions moved into independent submissions.
+
+This experience demonstrated that successful upstream development is not only about identifying useful technical changes. Large-scale modernization must also be organized around logical ownership, patch independence and reviewability.
+
+**Related Series**
+
+- [Series 008 – HID-IIO devm API and Resource-Management Modernization](../patch-series/series-008-hid-iio-devm-workstream.md)
+
+---
+
+## June 2026 – Maintaining the IIO Contributor Roadmap
+
+Updated the IIO TODO documentation to correct inaccuracies and refine resource-management guidance based on the current IIO API and cleanup model.
+
+The v2 revision was applied in linux-next.
+
+This contribution demonstrated that upstream participation extends beyond driver code: accurate subsystem documentation also helps future contributors identify meaningful and current areas for development.
+
+**Related Series**
+
+- [Series 009 – IIO TODO Documentation](../patch-series/series-009-iio-todo-documentation.md)
+
+---
+
+## June 2026 – Refining a Bug Claim Through Review
+
+The HID-IIO callback ordering work initially described the problem as a race condition that could result in NULL dereference or use-after-free.
+
+During review, maintainers challenged whether the claimed failure mode could actually be demonstrated. Investigation of the IIO registration and HID callback paths showed that the more defensible concern was an exposure window that could result in dropped samples or stale data.
+
+The final v2 series therefore changed the problem statement, removed unsupported `Fixes:` tags, refined the commit-message rationale, and was applied to linux-next as eight patches.
+
+This was an important step in developing upstream debugging and review maturity: the implementation was not simply defended; the technical claim itself was revised to match the evidence.
+
+**Related Series**
+
+- [Series 010 – HID-IIO Callback Ordering](../patch-series/series-010-hid-iio-callback-ordering.md)

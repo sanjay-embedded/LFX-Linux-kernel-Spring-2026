@@ -53,3 +53,41 @@ The work provided practical experience beyond driver implementation, including s
 **Related Series**
 
 - [Series 007 – ADI IIO MAINTAINERS Coverage](../patch-series/series-007-adi-iio-maintainers.md)
+
+---
+
+## August 2026 – HID-IIO Devm Modernization Workstream
+
+Developed a multi-revision HID-IIO resource-management workstream that evolved from a 10-patch API cleanup into a 36-patch cross-driver modernization effort before being restructured into a focused parent series and independent driver-conversion series.
+
+The work demonstrates experience with common kernel infrastructure, devres, resource ownership, API design and large-scale patch-series organization.
+
+**Related Series**
+
+- [Series 008 – HID-IIO devm API and Resource-Management Modernization](../patch-series/series-008-hid-iio-devm-workstream.md)
+
+---
+
+## June 2026 – IIO Documentation Contribution Applied in linux-next
+
+Updated the IIO TODO documentation to improve the accuracy of resource-management guidance and correct existing documentation issues.
+
+The contribution evolved through two revisions and was applied in linux-next.
+
+**Related Series**
+
+- [Series 009 – IIO TODO Documentation](../patch-series/series-009-iio-todo-documentation.md)
+
+---
+
+## June 2026 – HID-IIO Callback Ordering Accepted in linux-next
+
+Developed an eight-patch HID-IIO ordering improvement addressing the relationship between callback setup and IIO device exposure.
+
+The initial series described a potential UAF/race condition. Maintainer review challenged the evidence for that claim, leading to investigation of the actual execution paths and refinement of the problem statement toward a possible sample-loss/stale-data window.
+
+The final v2 series removed unsupported `Fixes:` claims, refined the ordering rationale, and was applied to linux-next.
+
+**Related Series**
+
+- [Series 010 – HID-IIO Callback Ordering](../patch-series/series-010-hid-iio-callback-ordering.md)
