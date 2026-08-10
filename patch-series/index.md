@@ -10,3 +10,4 @@
 | 005 | MMA8452 – Modern Coding Style, PM & Resource Cleanup | Partially merged / ongoing | Apr–Aug 2026 | Initial → v5 | IIO, PM, devm, guard, IRQ, regulator, cleanup               |
 | 006 | ADXL Accelerometer Cleanup & Error Handling          | Merged                     | Apr 2026     | v1 → v2      | IIO, devm, dev_err_probe, mutex, accelerometer              |
 | 007 | ADI IIO MAINTAINERS Coverage & Ownership             | Merged                     | Apr–May 2026 | v1 → v6      | MAINTAINERS, IIO, ADI, maintainers, coverage                 |
+| 008 | HID-IIO devm API & Resource-Management Modernization | Active / Split Workstream  | Apr–Aug 2026 | v1 → v5      | `HID-IIO`, `devm`, `devres`, `cleanup`, `guard`, `resource-management` |
