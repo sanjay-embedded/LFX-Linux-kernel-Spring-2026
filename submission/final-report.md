@@ -1,4 +1,10 @@
-## mainline kernel commits
+## Overview and Quick Facts
+20+ mainline commits: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/log/?qt=author&q=sanjay+chitroda
+
+25+ additional linux-next commits: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/log/?qt=author&q=sanjay+chitroda
+
+
+## mainline kernel accepted commits
 
 $ git remote -v
 
@@ -50,7 +56,7 @@ d2ed8a2f630abe69d87eeffb2781df9237d7c1dd iio: accel: adxl313_core: Use devm-mana
 1ac30f58f0336287203109872f71a81d4bb271db iio: st_sensors: drop temporary kmalloc buffer and reuse buffer_data
 
 
-## linux-next kernel commits
+## linux-next kernel accepted commits
 
 $ git remote -v
 
@@ -115,3 +121,6 @@ b720b5d6835cd8a61db248b1ff5798a69a470719 iio: accel: hid-sensor-accel-3d: use u3
 
 b66a56fae18f1d348d5e8dcfcb75d7800ab936f9 iio: gyro: hid-sensor-gyro-3d: use u32 instead of unsigned
 
+
+## Short Summary
+During the Linux Kernel Mentorship, I focused on the Industrial I/O subsystem and worked on driver modernization, resource management, maintainer metadata, and review-driven patch restructuring. Across the mentorship, I submitted and refined multiple patch series that were accepted into mainline Linux and linux-next, while also learning how to collaborate effectively with subsystem maintainers and respond to upstream review.
