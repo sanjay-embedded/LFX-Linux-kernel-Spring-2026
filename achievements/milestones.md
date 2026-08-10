@@ -65,3 +65,15 @@ The work demonstrates experience with common kernel infrastructure, devres, reso
 **Related Series**
 
 - [Series 008 – HID-IIO devm API and Resource-Management Modernization](../patch-series/series-008-hid-iio-devm-workstream.md)
+
+---
+
+## June 2026 – IIO Documentation Contribution Applied in linux-next
+
+Updated the IIO TODO documentation to improve the accuracy of resource-management guidance and correct existing documentation issues.
+
+The contribution evolved through two revisions and was applied in linux-next.
+
+**Related Series**
+
+- [Series 009 – IIO TODO Documentation](../patch-series/series-009-iio-todo-documentation.md)

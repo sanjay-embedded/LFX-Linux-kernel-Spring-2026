@@ -127,3 +127,17 @@ This experience demonstrated that successful upstream development is not only ab
 **Related Series**
 
 - [Series 008 – HID-IIO devm API and Resource-Management Modernization](../patch-series/series-008-hid-iio-devm-workstream.md)
+
+---
+
+## June 2026 – Maintaining the IIO Contributor Roadmap
+
+Updated the IIO TODO documentation to correct inaccuracies and refine resource-management guidance based on the current IIO API and cleanup model.
+
+The v2 revision was applied in linux-next.
+
+This contribution demonstrated that upstream participation extends beyond driver code: accurate subsystem documentation also helps future contributors identify meaningful and current areas for development.
+
+**Related Series**
+
+- [Series 009 – IIO TODO Documentation](../patch-series/series-009-iio-todo-documentation.md)
