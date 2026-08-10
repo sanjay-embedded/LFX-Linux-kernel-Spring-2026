@@ -185,3 +185,19 @@ This reinforced an important upstream lesson: patch quality is not measured by t
 **Related Series**
 
 - [Series 012 – HID-IIO Warning and Coding-Style Cleanup](../patch-series/series-012-hid-iio-warning-cleanup.md)
+
+---
+
+## June 2026 – HID Temperature Teardown Ordering Fix
+
+Extracted a focused correctness fix from the broader HID-IIO callback/device-exposure work.
+
+The initial patch claimed a potential use-after-free. Maintainer review challenged the failure mechanism, leading to investigation of the actual teardown path and identification of a concrete timeout caused by the IIO device remaining exposed after the sensor-hub callback was removed.
+
+The implementation remained unchanged in v2, while the commit message was rewritten to accurately describe the demonstrated failure. The fix was subsequently applied in linux-next.
+
+**Related Series**
+
+- [Series 013 – HID Temperature Teardown Ordering](../patch-series/series-013-hid-temperature-teardown.md)
+- [Series 010 – HID-IIO Callback Ordering](../patch-series/series-010-hid-iio-callback-ordering.md)
+    
