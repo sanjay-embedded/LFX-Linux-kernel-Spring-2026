@@ -53,3 +53,15 @@ The work provided practical experience beyond driver implementation, including s
 **Related Series**
 
 - [Series 007 – ADI IIO MAINTAINERS Coverage](../patch-series/series-007-adi-iio-maintainers.md)
+
+---
+
+## August 2026 – HID-IIO Devm Modernization Workstream
+
+Developed a multi-revision HID-IIO resource-management workstream that evolved from a 10-patch API cleanup into a 36-patch cross-driver modernization effort before being restructured into a focused parent series and independent driver-conversion series.
+
+The work demonstrates experience with common kernel infrastructure, devres, resource ownership, API design and large-scale patch-series organization.
+
+**Related Series**
+
+- [Series 008 – HID-IIO devm API and Resource-Management Modernization](../patch-series/series-008-hid-iio-devm-workstream.md)

@@ -113,3 +113,17 @@ This contribution expanded my understanding of upstream Linux beyond driver impl
 **Related Series**
 
 - [Series 007 – ADI IIO MAINTAINERS Coverage](../patch-series/series-007-adi-iio-maintainers.md)
+
+---
+
+## April – August 2026: Learning to Structure Cross-Driver Modernization
+
+The HID-IIO workstream became the largest and most structurally complex contribution effort during the mentorship.
+
+It began as a 10-patch API cleanup, expanded to 36 patches while exploring common device handling and driver conversions, and was ultimately restructured into a focused 13-patch parent series with related driver conversions moved into independent submissions.
+
+This experience demonstrated that successful upstream development is not only about identifying useful technical changes. Large-scale modernization must also be organized around logical ownership, patch independence and reviewability.
+
+**Related Series**
+
+- [Series 008 – HID-IIO devm API and Resource-Management Modernization](../patch-series/series-008-hid-iio-devm-workstream.md)
