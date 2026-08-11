@@ -84,7 +84,7 @@ This reinforced the importance of understanding the driver's complete lifecycle 
 
 **Related Series**
 
-- [Series 005 – MMA8452 modernization](../patch-series/series-005-mma8452-modernization.md)
+- [Series 005 – MMA8452 modernization](patch-series/series-005-mma8452-modernization.md)
 
 
 ## Managed Resources Require Lifetime Analysis
@@ -95,7 +95,7 @@ Resource ownership, teardown order and error-path ordering must first be underst
 
 **Related Series**
 
-- [Series 005 – MMA8452 modernization](../patch-series/series-005-mma8452-modernization.md)
+- [Series 005 – MMA8452 modernization](patch-series/series-005-mma8452-modernization.md)
 
 
 ## Large Series Should Be Continuously Reduced
@@ -108,7 +108,7 @@ This demonstrated that series size should follow logical ownership and reviewabi
 
 **Related Series**
 
-- [Series 005 – MMA8452 modernization](../patch-series/series-005-mma8452-modernization.md)
+- [Series 005 – MMA8452 modernization](patch-series/series-005-mma8452-modernization.md)
 
 ---
 
@@ -141,7 +141,7 @@ The ADI IIO work demonstrated how a simple contact correction can require unders
 
 **Related Series**
 
-- [Series 007 – ADI IIO MAINTAINERS Coverage](../patch-series/series-007-adi-iio-maintainers.md)
+- [Series 007 – ADI IIO MAINTAINERS Coverage](patch-series/series-007-adi-iio-maintainers.md)
 
 ---
 
@@ -161,7 +161,7 @@ The later restructuring separated the common devm API from individual driver con
 
 **Related Series**
 
-- [Series 008 – HID-IIO devm API and Resource-Management Modernization](../patch-series/series-008-hid-iio-devm-workstream.md)
+- [Series 008 – HID-IIO devm API and Resource-Management Modernization](patch-series/series-008-hid-iio-devm-workstream.md)
 
 ---
 
@@ -183,7 +183,7 @@ Key principles:
 
 **Related Series**
 
-- [Series 010 – HID-IIO Callback Ordering](../patch-series/series-010-hid-iio-callback-ordering.md)
+- [Series 010 – HID-IIO Callback Ordering](patch-series/series-010-hid-iio-callback-ordering.md)
 
 ---
 
@@ -220,7 +220,7 @@ coding-style migrations.
 
 **Related Series**
 
-- [Series 011 – HID-IIO usage_id Type Unification](../patch-series/series-011-hid-iio-usage-id.md)
+- [Series 011 – HID-IIO usage_id Type Unification](patch-series/series-011-hid-iio-usage-id.md)
 
 ---
 
@@ -254,4 +254,4 @@ This does not mean combining unrelated changes. It means avoiding artificial fra
 
 **Related Series**
 
-* [Series 012 – HID-IIO Warning and Coding-Style Cleanup](../patch-series/series-012-hid-iio-warning-cleanup.md)
+* [Series 012 – HID-IIO Warning and Coding-Style Cleanup](patch-series/series-012-hid-iio-warning-cleanup.md)

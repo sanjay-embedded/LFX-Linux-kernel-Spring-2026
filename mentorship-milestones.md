@@ -26,7 +26,7 @@ The work demonstrated the ability to refine a large series based on maintainer f
 
 **Related Series**
 
-- [Series 005 – MMA8452 modernization](../patch-series/series-005-mma8452-modernization.md)
+- [Series 005 – MMA8452 modernization](patch-series/series-005-mma8452-modernization.md)
 
 ---
 
@@ -38,7 +38,7 @@ The final series was accepted after incorporating reviewer feedback, synchronizi
 
 **Related Series**
 
-- [Series 006 – ADXL Accelerometer Cleanup](../patch-series/series-006-adxl-accelerometer-cleanup.md)
+- [Series 006 – ADXL Accelerometer Cleanup](patch-series/series-006-adxl-accelerometer-cleanup.md)
 
 ---
 
@@ -52,7 +52,7 @@ The work provided practical experience beyond driver implementation, including s
 
 **Related Series**
 
-- [Series 007 – ADI IIO MAINTAINERS Coverage](../patch-series/series-007-adi-iio-maintainers.md)
+- [Series 007 – ADI IIO MAINTAINERS Coverage](patch-series/series-007-adi-iio-maintainers.md)
 
 ---
 
@@ -64,7 +64,7 @@ The work demonstrates experience with common kernel infrastructure, devres, reso
 
 **Related Series**
 
-- [Series 008 – HID-IIO devm API and Resource-Management Modernization](../patch-series/series-008-hid-iio-devm-workstream.md)
+- [Series 008 – HID-IIO devm API and Resource-Management Modernization](patch-series/series-008-hid-iio-devm-workstream.md)
 
 ---
 
@@ -76,7 +76,7 @@ The contribution evolved through two revisions and was applied in linux-next.
 
 **Related Series**
 
-- [Series 009 – IIO TODO Documentation](../patch-series/series-009-iio-todo-documentation.md)
+- [Series 009 – IIO TODO Documentation](patch-series/series-009-iio-todo-documentation.md)
 
 ---
 
@@ -90,7 +90,7 @@ The final v2 series removed unsupported `Fixes:` claims, refined the ordering ra
 
 **Related Series**
 
-- [Series 010 – HID-IIO Callback Ordering](../patch-series/series-010-hid-iio-callback-ordering.md)
+- [Series 010 – HID-IIO Callback Ordering](patch-series/series-010-hid-iio-callback-ordering.md)
 
 ---
 
@@ -104,7 +104,7 @@ The work aligned callback implementations with the HID sensor hub API and demons
 
 **Related Series**
 
-- [Series 011 – HID-IIO `usage_id` Type Unification](../patch-series/series-011-hid-iio-usage-id.md)
+- [Series 011 – HID-IIO `usage_id` Type Unification](patch-series/series-011-hid-iio-usage-id.md)
 
 ---
 
@@ -118,4 +118,4 @@ The contribution demonstrated practical upstream skills in patch-series organiza
 
 **Related Series**
 
-- [Series 012 – HID-IIO Warning and Coding-Style Cleanup](../patch-series/series-012-hid-iio-warning-cleanup.md)
+- [Series 012 – HID-IIO Warning and Coding-Style Cleanup](patch-series/series-012-hid-iio-warning-cleanup.md)
