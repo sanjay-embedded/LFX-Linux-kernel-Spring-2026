@@ -80,7 +80,7 @@ This strengthened my understanding that kernel cleanup is not only about adoptin
 
 **Related Series**
 
-- [Series 005 – MMA8452 modernization](../patch-series/series-005-mma8452-modernization.md)
+- [Series 005 – MMA8452 modernization](patch-series/series-005-mma8452-modernization.md)
 
 ---
 
@@ -96,7 +96,7 @@ This reinforced the importance of synchronizing development with the subsystem t
 
 **Related Series**
 
-- [Series 006 – ADXL accelerometer cleanup](../patch-series/series-006-adxl-accelerometer-cleanup.md)
+- [Series 006 – ADXL accelerometer cleanup](patch-series/series-006-adxl-accelerometer-cleanup.md)
 
 ---
 
@@ -112,7 +112,7 @@ This contribution expanded my understanding of upstream Linux beyond driver impl
 
 **Related Series**
 
-- [Series 007 – ADI IIO MAINTAINERS Coverage](../patch-series/series-007-adi-iio-maintainers.md)
+- [Series 007 – ADI IIO MAINTAINERS Coverage](patch-series/series-007-adi-iio-maintainers.md)
 
 ---
 
@@ -126,7 +126,7 @@ This experience demonstrated that successful upstream development is not only ab
 
 **Related Series**
 
-- [Series 008 – HID-IIO devm API and Resource-Management Modernization](../patch-series/series-008-hid-iio-devm-workstream.md)
+- [Series 008 – HID-IIO devm API and Resource-Management Modernization](patch-series/series-008-hid-iio-devm-workstream.md)
 
 ---
 
@@ -140,7 +140,7 @@ This contribution demonstrated that upstream participation extends beyond driver
 
 **Related Series**
 
-- [Series 009 – IIO TODO Documentation](../patch-series/series-009-iio-todo-documentation.md)
+- [Series 009 – IIO TODO Documentation](patch-series/series-009-iio-todo-documentation.md)
 
 ---
 
@@ -156,7 +156,7 @@ This was an important step in developing upstream debugging and review maturity:
 
 **Related Series**
 
-- [Series 010 – HID-IIO Callback Ordering](../patch-series/series-010-hid-iio-callback-ordering.md)
+- [Series 010 – HID-IIO Callback Ordering](patch-series/series-010-hid-iio-callback-ordering.md)
 
 ---
 
@@ -170,7 +170,7 @@ This contribution reinforced an important upstream workflow: complete the initia
 
 **Related Series**
 
-- [Series 011 – HID-IIO `usage_id` Type Unification](../patch-series/series-011-hid-iio-usage-id.md)
+- [Series 011 – HID-IIO `usage_id` Type Unification](patch-series/series-011-hid-iio-usage-id.md)
 
 ---
 
@@ -184,7 +184,7 @@ This reinforced an important upstream lesson: patch quality is not measured by t
 
 **Related Series**
 
-- [Series 012 – HID-IIO Warning and Coding-Style Cleanup](../patch-series/series-012-hid-iio-warning-cleanup.md)
+- [Series 012 – HID-IIO Warning and Coding-Style Cleanup](patch-series/series-012-hid-iio-warning-cleanup.md)
 
 ---
 
@@ -198,5 +198,5 @@ The implementation remained unchanged in v2, while the commit message was rewrit
 
 **Related Series**
 
-- [Series 013 – HID Temperature Teardown Ordering](../patch-series/series-013-hid-temperature-teardown.md)
-- [Series 010 – HID-IIO Callback Ordering](../patch-series/series-010-hid-iio-callback-ordering.md)
+- [Series 013 – HID Temperature Teardown Ordering](patch-series/series-013-hid-temperature-teardown.md)
+- [Series 010 – HID-IIO Callback Ordering](patch-series/series-010-hid-iio-callback-ordering.md)
