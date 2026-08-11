@@ -1,20 +1,92 @@
-## Overview and Quick Facts
-20+ mainline commits: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/log/?qt=author&q=sanjay+chitroda
+# LFX Linux Kernel Mentorship — Spring 2026
 
-25+ additional linux-next commits: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/log/?qt=author&q=sanjay+chitroda
+**Final Report — Sanjay Chitroda**  
+**Mentorship:** 1 March 2026 – 31 August 2026  
+**Primary Subsystem:** Industrial I/O (IIO)  
+**Mentors:** Shuah Khan & Brigham Campbell
 
+---
 
-## mainline kernel accepted commits
+## Mentorship Snapshot
 
-$ git remote -v
+| Area | Summary |
+|---|---|
+| Focus | IIO driver modernization, resource management, error handling and upstream development |
+| Mainline | **20+ accepted commits** |
+| linux-next | **25+ additional commits** |
+| Contribution model | Focused cleanups → multi-revision series → infrastructure and cross-driver modernization |
+| Upstream workflow | Patch preparation, review, revision, linux-next tracking and mainline integration |
 
-linux-torvalds	https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git (fetch)
+## Contribution Impact
 
-linux-torvalds	https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git (push)
+During the mentorship, I focused on the Industrial I/O subsystem and worked on driver modernization, resource management, error handling, maintainership metadata and review-driven patch restructuring. The work progressed from focused cleanup changes to broader driver and infrastructure improvements requiring multiple review iterations.
 
---------------------------------------------------------------------------------------------
-$ git log --author="Sanjay Chitroda" --since="2026-03-01" --pretty --format=oneline
+Key contribution areas included:
 
+- Modernizing IIO drivers through `devm_*`, resource-lifetime and cleanup improvements.
+- Improving probe and error handling with APIs such as `dev_err_probe()`.
+- Improving driver correctness and lifecycle handling, including resource ordering and race-related changes.
+- Updating ADI IIO `MAINTAINERS` coverage based on actual upstream ownership and review coverage.
+- Working on HID-IIO infrastructure and cross-driver modernization in linux-next.
+- Applying maintainer and reviewer feedback to refine both implementation and patch-series structure.
+
+## Upstream Development Experience
+
+The mentorship changed my development workflow from primarily implementing individual kernel changes to developing changes with **subsystem expectations, reviewability and upstream integration** in mind.
+
+A typical workflow became:
+
+```text
+Understand subsystem
+        ↓
+Study existing implementation and patterns
+        ↓
+Define logical patch boundary
+        ↓
+Implement and validate
+        ↓
+Submit to the mailing list
+        ↓
+Respond to review
+        ↓
+Revise or restructure the series
+        ↓
+Track linux-next
+        ↓
+Track mainline
+```
+
+The HID-IIO work was a major example of this evolution. The work expanded through several revisions and grew as large as a 36-patch series before review-driven restructuring separated common infrastructure from driver-specific conversions.
+
+## Key Learning
+
+- Patch scope should follow logical ownership and reviewability rather than implementation convenience.
+- A technically simple cleanup can expose deeper API, lifecycle or resource-management considerations.
+- `devm_*` conversions require understanding resource ownership and teardown ordering rather than mechanical API replacement.
+- Patches should remain independently understandable and applicable where possible.
+- Review feedback can change the architecture and scope of a contribution, not only individual lines of code.
+- Upstream collaboration requires precise communication, consistent patch structure and careful tracking of subsystem development trees.
+- `MAINTAINERS` represents sustainable ownership and review coverage, not simply contact information.
+
+## Mentorship Outcome
+
+The mentorship provided practical experience contributing to upstream Linux beyond code changes alone. I developed a stronger understanding of IIO driver architecture, kernel resource-management patterns, mailing-list communication, maintainer expectations, patch-series organization and the complete path from submission through linux-next to mainline.
+
+I plan to continue contributing to IIO and expand my upstream kernel review and development activity beyond the mentorship.
+
+---
+
+# Upstream Contribution References
+
+The following sections preserve the contribution evidence generated from the Linux kernel repositories. The raw commit data is retained as provided by `git log --oneline`; only the presentation and ordering of the report have been changed.
+
+## Mainline Kernel — Accepted Commits
+
+**Mainline author log:**
+
+`git log --author="Sanjay Chitroda" --since="2026-03-01" --pretty --format=oneline`
+
+```text
 32a5c04d457540af67507494f30261580213df94 iio: accel: mma8452: Use dev_err_probe()
 
 e9f143941584ae27e9981649a3f9916c322ee01d iio: accel: mma8452: sort headers alphabetically
@@ -54,19 +126,15 @@ c27837e49fd1fa0eae1b6d3988d2ae5a9d924739 iio: accel: adxl313: Use dev_err_probe(
 d2ed8a2f630abe69d87eeffb2781df9237d7c1dd iio: accel: adxl313_core: Use devm-managed mutex initialization
 
 1ac30f58f0336287203109872f71a81d4bb271db iio: st_sensors: drop temporary kmalloc buffer and reuse buffer_data
+```
 
+## linux-next Kernel — Accepted Commits
 
-## linux-next kernel accepted commits
+**linux-next author log:**
 
-$ git remote -v
+`git log --author="Sanjay Chitroda" --since="2026-03-01" --pretty --format=oneline`
 
-linux-next	https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git (fetch)
-
-linux-next	https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git (push)
-
---------------------------------------------------------------------------------------------
-$ git log --author="Sanjay Chitroda" --since="2026-03-01" --pretty --format=oneline
-
+```text
 15b8b49933507c9f437af51c2da626dc5840ef26 media: i2c: gc0310: Use devm_v4l2_sensor_clk_get()
 
 967d066f5334740f656577bc51c381a1bb707b61 iio: temperature: hid-sensor-temperature: switch to non-devm iio_device_register()
@@ -120,7 +188,10 @@ d5b231ec6b0903480bae49475c7acd31e0077a4c iio: light: hid-sensor-als: use u32 ins
 b720b5d6835cd8a61db248b1ff5798a69a470719 iio: accel: hid-sensor-accel-3d: use u32 instead of unsigned
 
 b66a56fae18f1d348d5e8dcfcb75d7800ab936f9 iio: gyro: hid-sensor-gyro-3d: use u32 instead of unsigned
+```
 
+## Contribution Sources
 
-## Short Summary
-During the Linux Kernel Mentorship, I focused on the Industrial I/O subsystem and worked on driver modernization, resource management, maintainer metadata, and review-driven patch restructuring. Across the mentorship, I submitted and refined multiple patch series that were accepted into mainline Linux and linux-next, while also learning how to collaborate effectively with subsystem maintainers and respond to upstream review.
+- **Mainline:** https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/log/?qt=author&q=sanjay+chitroda
+- **linux-next:** https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/log/?qt=author&q=sanjay+chitroda
+- **Mentorship repository:** https://github.com/sanjay-embedded/LFX-Linux-kernel-Spring-2026
