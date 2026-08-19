@@ -1,0 +1,6 @@
+title: "From Embedded Linux to Kernel Contributor"
+description: "Sanjay Chitroda's LFX Linux Kernel Mentorship Journey — Spring 2026"
+url: "https://sanjay-embedded.github.io"
+baseurl: "/LFX-Linux-kernel-Spring-2026"
+theme: minima
+markdown: kramdown
