@@ -12,233 +12,252 @@ title: "From Embedded Linux to Kernel Contributor"
 **Primary subsystem:** Industrial I/O (IIO)  
 **Mentors:** Shuah Khan & Brigham Campbell
 
+> **Before mentorship:** Embedded Linux / BSP / product development  
+> ↓  
+> **Mentorship:** Upstream Linux kernel development  
+> ↓  
+> **After mentorship:** Independent Linux kernel contributor
+
 ---
 
 ## The journey
 
-My LFX Linux Kernel Mentorship journey is best understood as a transition in how I approached Linux kernel development:
+I entered the LFX mentorship with more than eight years of Embedded Linux experience, including BSP development, Linux device drivers, multimedia systems, the Yocto Project and Linux kernel development in product environments.
 
-```text
-Before mentorship
+I was already an upstream contributor through work in the Yocto Project. The specific transition I wanted to make through LFX was deeper and more sustained participation in the **upstream Linux kernel community**: working within a subsystem, submitting changes through the mailing-list workflow, responding to reviews, following linux-next and understanding how changes reach mainline.
 
-Embedded Linux / BSP / product development
-                ↓
-Mentorship
+The mentorship focused on the **Industrial I/O (IIO)** subsystem and gave me a structured opportunity to make that transition through real kernel contributions.
 
-Upstream Linux kernel development
-                ↓
-After mentorship
+## Why I joined
 
-Independent kernel contributor
-```
+Working with the Linux kernel in a product environment and contributing to the upstream kernel are closely related, but the engineering priorities are not identical.
 
-I already came to the mentorship with more than eight years of Embedded Linux experience, including BSP development, Linux device drivers, multimedia work and experience with the Yocto Project and Linux kernel development. My goal was not simply to learn Linux kernel programming from scratch. I wanted to deepen my practical experience with the **upstream kernel development process** and become a more effective long-term kernel contributor.
+Product development often starts with a platform requirement, a feature or a problem that needs to be solved. Upstream development adds another question:
 
-The mentorship gave me an opportunity to work within the Linux kernel community, learn subsystem expectations, submit patches to the mailing list, respond to reviews, restructure patch series, follow linux-next and understand the path from an initial contribution to mainline integration.
+> **Is this change the right long-term change for the subsystem?**
 
-## Why I joined the mentorship
+That means considering architecture, existing kernel patterns, resource ownership, lifecycle, reviewability, maintainability and the expectations of the maintainers who will carry the code forward.
 
-Working with the Linux kernel in a product environment and contributing to the upstream kernel are related, but they require different habits.
+I joined LFX to develop that upstream perspective through actual contributions and community review rather than only through documentation or isolated experimentation.
 
-In product development, the immediate objective is often to implement and validate functionality for a particular platform or product. Upstream development adds another dimension: the change must fit the subsystem's architecture, conventions, maintainership model and long-term maintenance expectations.
+## What I worked on
 
-I joined the LFX mentorship to strengthen that upstream perspective and learn through real contributions and community review rather than only through documentation or isolated experimentation.
+My primary area was IIO driver modernization and maintenance. The work included:
 
-## Starting point: Embedded Linux and BSP development
-
-Before the mentorship, my professional experience was centered around Embedded Linux and product development. My background includes:
-
-- Embedded Linux and BSP development
-- Linux device drivers
-- Multimedia systems, including camera and display
-- Yocto Project and build-system work
-- Linux kernel development in product environments
-
-I had already contributed to upstream projects, including the Yocto Project. The LFX mentorship therefore represented a focused opportunity to build deeper and more sustained experience specifically in **upstream Linux kernel development and collaboration**.
-
-## Entering the IIO subsystem
-
-The mentorship focused on the **Industrial I/O (IIO)** subsystem. This gave me an opportunity to study a subsystem in depth while working on real drivers and infrastructure.
-
-My work covered several closely related areas:
-
-- Driver modernization
 - `devm_*` and devres-based resource management
 - `cleanup.h`, including `__free` and `guard()` patterns
-- Error-path improvements
-- Driver lifecycle handling
 - `dev_err_probe()` adoption
+- Error-path and driver-lifecycle improvements
 - Resource ownership and teardown considerations
 - HID-IIO infrastructure and cross-driver modernization
 - Maintainer and review metadata
+- Small cleanups that prepared drivers for current kernel practices
 
-The work began with focused cleanup and modernization changes and gradually expanded into larger, review-driven patch series.
+A recurring theme was **modernizing drivers in line with current kernel patterns as preventive maintenance**. The goal was not to wait for a reported bug and then repair it. Many changes were intended to reduce unnecessary lifetime, cleanup and error-path complexity and avoid potential failures or bugs before they become user-visible problems.
 
-## Learning the upstream workflow
+## Kernel timeline
 
-One of the most important outcomes of the mentorship was learning that upstream development is more than writing code and sending a patch.
+The contribution journey also gave me a practical view of how kernel development moves through versions rather than existing as a single release event.
 
-My workflow evolved toward:
+```text
+Linux 7.1 development / early mentorship
+                 │
+                 ▼
+          Linux 7.2 merge window
+                 │
+                 ▼
+             Linux 7.2-rc
+                 │
+                 ▼
+        Linux 7.3 merge window
+                 │
+                 ▼
+       Continued linux-next work
+```
+
+Following the subsystem tree, linux-next and mainline helped me understand where a patch actually sits in the upstream development cycle and why timing, review and integration matter.
+
+## From a patch to an upstream change
+
+My development workflow evolved during the mentorship:
 
 ```text
 Understand the subsystem
         ↓
-Study existing implementation and conventions
+Study existing implementation and kernel patterns
         ↓
-Define a logical patch boundary
+Identify a meaningful, reviewable change
         ↓
-Implement and validate the change
+Implement and validate
         ↓
-Prepare the commit and cover letter
+Prepare the patch / series
         ↓
 Submit to the mailing list
         ↓
 Receive maintainer and reviewer feedback
         ↓
-Revise or restructure the series
+Revise or restructure
         ↓
 Track linux-next
         ↓
 Track mainline integration
 ```
 
-This process changed how I think about a kernel change. A patch is not finished merely because the code builds or the local problem is solved. It also needs to be understandable, reviewable, appropriately scoped and maintainable within the subsystem.
+The most important lesson was that **writing the code is only one part of an upstream contribution**.
 
 ## What code review taught me
 
-The review process became one of the most valuable parts of the mentorship.
+The review process became one of the most valuable parts of the mentorship. Review was not simply about correcting lines of code; it could change the scope, structure or architecture of a patch series.
 
-Review feedback was not limited to correcting individual lines. In several cases, review affected the **scope, structure and architecture of the patch series**.
+One example was the HID-IIO work. What started as driver modernization grew into a large series and reached 36 patches before review-driven restructuring separated common infrastructure from driver-specific conversions.
 
-The HID-IIO work was a particularly useful example. What started as driver modernization expanded into a large series and eventually reached 36 patches before review-driven restructuring separated common infrastructure work from driver-specific conversions.
+That experience changed how I approached patch series. Related changes do not necessarily belong in one series simply because they can be implemented together. The series should also make sense to a reviewer and leave logical, maintainable changes behind.
 
-That experience reinforced several lessons:
+Another important lesson came from driver lifecycle work. Changes involving resource management or device exposure require reasoning about **ownership, teardown ordering and what another execution context can observe**, rather than simply replacing one API with another.
 
-- Patch scope should follow logical ownership and reviewability rather than implementation convenience.
-- A technically simple cleanup can expose deeper API, lifecycle or resource-management considerations.
-- `devm_*` conversions require understanding resource ownership and teardown ordering rather than mechanical API replacement.
-- Patches should remain independently understandable and applicable where possible.
-- Review feedback can change the architecture and scope of a contribution, not only individual lines of code.
-- Upstream collaboration requires precise communication and careful tracking of subsystem development trees.
+> **Before mentorship, I thought a good patch was primarily about fixing the code. After mentorship, I realized a good upstream patch is also about making the change easy to review, maintain and integrate.**
 
-## From cleanup patches to broader modernization
+That became one of the most important changes in my engineering approach.
 
-The contribution journey progressed from focused cleanups to broader modernization work.
+## Representative contributions
 
-Examples included adopting `dev_err_probe()`, improving resource lifetime handling, using devm-managed resources where appropriate, addressing error paths, and improving lifecycle correctness.
+Rather than listing every patch, the following examples represent the different types of engineering lessons I gained.
 
-Some changes were intentionally small. That was valuable because small patches provided a way to learn subsystem conventions, commit structure and review expectations. As my understanding grew, I became more comfortable working on larger changes and multi-revision series.
+### Driver modernization and error handling
 
-A recurring lesson was that a seemingly mechanical modernization is rarely just a search-and-replace exercise. For example, changing resource management requires understanding who owns the resource, when it is acquired, when it is released, what happens on probe failure, and whether changing the lifetime introduces ordering or race concerns.
+The `mma8452` and ADXL3xx work provided focused examples of driver modernization, including `dev_err_probe()`, devm-managed resources and error-path improvements.
 
-## A concrete example: driver exposure and callback ordering
+These changes reinforced that small patches can still require careful reasoning about probe failures, resource lifetime and kernel conventions.
 
-The HID-IIO work also exposed an important driver-lifecycle consideration: the order in which callbacks are configured and an IIO device becomes visible to userspace.
+### HID-IIO lifecycle and concurrency
 
-Several changes addressed races between callback setup and device exposure. The important lesson was that API calls cannot always be evaluated independently; their ordering can define whether another execution context can observe a partially initialized device.
+The HID-IIO work went beyond mechanical cleanup. Several drivers required changes to avoid races between callback setup and device exposure.
 
-This was a good example of how upstream review helped move the work beyond simple modernization toward reasoning about **lifecycle, concurrency and externally visible state**.
+This highlighted an important principle: **API ordering can be part of correctness**. A device should not become externally visible while the state required for its callbacks or operation is still being established.
+
+### Maintainer and ownership metadata
+
+Updating `MAINTAINERS` entries was another useful upstream lesson. Maintainer information is not simply a list of email addresses; it represents sustainable ownership and review coverage for code.
+
+This showed that upstream contribution also includes the community and maintenance model around the code, not only the implementation itself.
 
 ## Contribution snapshot
 
-During the mentorship, my work in IIO progressed from focused cleanups to multi-revision series and broader infrastructure and cross-driver modernization.
-
 | Area | Result |
 |---|---|
-| Mentorship | LFX Linux Kernel Mentorship — Spring 2026 |
+| Program | LFX Linux Kernel Mentorship — Spring 2026 |
 | Duration | 1 March 2026 – 31 August 2026 |
 | Primary subsystem | Industrial I/O (IIO) |
 | Mainline | **20+ accepted commits** |
 | linux-next | **25+ additional commits** |
 | Main focus | Driver modernization, resource management, error handling and lifecycle improvements |
-| Workflow | Submission → review → revision → linux-next → mainline |
+| Development model | Submission → review → revision → linux-next → mainline |
 
-The repository contains the detailed contribution evidence, patch series, milestones, growth notes and final report.
+The numbers provide a useful measure of activity, but the larger outcome was learning how to develop changes with upstream review and long-term maintenance in mind.
 
-## Beyond the number of patches
+## Testing and tools
 
-The number of accepted commits is useful as a measurable outcome, but it is not the main measure of what I gained from the mentorship.
+The validation approach depended on the type of change and available hardware. For many IIO driver cleanups and modernization patches, validation included kernel builds, static analysis and source-level checks, together with careful review of probe, remove and error paths. Dedicated hardware was not available for every driver, so I have avoided presenting compilation or static analysis as hardware validation.
 
-The larger change was in my development workflow.
+The wider upstream workflow also involved tools and resources such as:
 
-I became more conscious of:
+- Kernel build and warning checks
+- `checkpatch.pl`
+- Sparse and static analysis where applicable
+- Coccinelle / `coccicheck` where applicable
+- Git and patch-series tooling
+- `lore.kernel.org` and mailing-list archives
+- linux-next tracking
+- Mainline kernel history
 
-- Subsystem-specific expectations
-- Patch boundaries and series organization
-- Resource ownership and lifetime
-- Error-path correctness
-- Reviewability and maintainability
-- Mailing-list communication
-- Maintainer expectations
-- linux-next and mainline tracking
-- Reviewing and learning from other contributors' work
-
-The mentorship helped turn upstream contribution from an occasional activity into a more deliberate part of my kernel development practice.
+The important lesson was to match validation to the actual claim being made by a patch and to be explicit about what was and was not tested.
 
 ## What changed for me
 
 ### Before mentorship
 
-I approached Linux kernel development primarily from the perspective of an Embedded Linux and product engineer. I had kernel experience, but my day-to-day engineering context was strongly tied to platforms, BSPs and product requirements.
+I approached Linux kernel development primarily from an Embedded Linux and product-development perspective. I had kernel experience and upstream Yocto experience, but the kernel community was not yet a sustained part of my development workflow.
 
 ### During mentorship
 
-I worked inside an upstream subsystem, followed its development tree, submitted patches to the mailing list, received and incorporated review feedback, and learned to structure changes around maintainability and subsystem expectations.
+I worked within IIO, followed its development tree, submitted patches to the mailing list, responded to review, reworked patch series and tracked changes through linux-next and mainline.
 
 ### After mentorship
 
-The goal is to continue as an **independent Linux kernel contributor**, with IIO as an area where I can continue developing subsystem knowledge and contributing reviews and patches beyond the formal mentorship period.
+I want to continue as an **independent Linux kernel contributor**, with IIO as an area where I can continue developing subsystem knowledge, reviewing patches and contributing improvements beyond the formal mentorship period.
 
-The important transition is therefore not simply:
+The transition is therefore not simply:
 
 ```text
-5 patches accepted
+More accepted patches
 ```
 
 It is:
 
 ```text
-Product-focused kernel development
-            ↓
-Understanding upstream expectations
-            ↓
-Participating in review and subsystem development
-            ↓
-Independent kernel contribution
+Embedded Linux / product development
+              ↓
+Understanding upstream kernel expectations
+              ↓
+Review-driven subsystem development
+              ↓
+Independent Linux kernel contribution
 ```
 
-## Advice I would give to future mentees
+## What I learned from the community
 
-If I had to summarize the mentorship experience for someone preparing to contribute upstream, I would emphasize a few things:
+The mentorship was not only about working with my mentors. Reading other contributors' patches, following mailing-list discussions and seeing how maintainers evaluate changes provided a broader view of kernel development.
 
-1. **Learn the subsystem, not just the API.** Understanding how the subsystem is structured makes reviews much easier to understand.
-2. **Start with changes you can explain completely.** Small cleanups can teach a surprising amount about conventions and review expectations.
-3. **Treat review as part of development.** A review comment is often an opportunity to understand a design constraint that was not obvious from the code alone.
-4. **Do not make large series large only because the implementation is related.** Logical boundaries make review and maintenance easier.
-5. **Follow linux-next.** Seeing how work moves through subsystem trees provides context that a single patch cannot provide.
-6. **Read other people's patches.** Reviewing and comparing approaches is one of the fastest ways to learn subsystem conventions.
-7. **Think about lifetime and ownership.** Resource management changes should be based on lifecycle reasoning, not just API replacement.
+Some of the most useful lessons were:
+
+- Learn the subsystem, not just the API.
+- Start with changes you can explain completely.
+- Treat review as part of development, not as a final gate.
+- Keep patch boundaries logical and reviewable.
+- Think about resource ownership and lifetime before changing resource-management APIs.
+- Follow linux-next to understand how subsystem work progresses.
+- Read other contributors' patches to learn established patterns.
+- Prefer preventive modernization when it reduces complexity and potential failure paths.
+
+## A practical guide for future contributors
+
+During this journey, I also created a reusable guide for people interested in contributing to the Linux kernel with or without an LFX mentorship:
+
+**[Kernel Upstream Contribution Guide](https://github.com/sanjay-embedded/oss-guide/blob/master/kernel-upstream.rst)**
+
+The guide collects the practical steps, tools and workflow that I found useful while learning how to participate in upstream kernel development.
+
+## Tips for future mentees
+
+If I were starting the mentorship again, I would keep these points in mind:
+
+1. **Understand the subsystem before trying to understand every API.**
+2. **Start small, but choose changes that teach you something about the subsystem.**
+3. **Read review discussions carefully.** The reasoning behind a requested change can be more valuable than the code change itself.
+4. **Do not measure progress only by patch count.** Understanding why a patch is accepted, rejected or restructured matters more.
+5. **Follow the development trees.** linux-next and mainline provide context that individual patches cannot.
+6. **Learn from other contributors.** The mailing list is both a review system and a large technical knowledge base.
+7. **Think beyond today's bug.** Modernizing code according to current kernel practices can remove complexity and reduce potential future failures.
 
 ## What's next
 
-The mentorship ends on 31 August 2026, but upstream contribution does not.
+The mentorship is a milestone, not an endpoint. I plan to continue contributing to IIO, participate more actively in upstream review and expand my Linux kernel development experience into other areas.
 
-I plan to continue contributing to the IIO subsystem, increase my participation in upstream review and continue expanding my Linux kernel knowledge into other areas of interest.
-
-The mentorship was therefore not an endpoint. It was a structured transition from having Linux kernel experience in an Embedded Linux/product environment to participating more deeply in the **upstream Linux kernel community**.
+The most important outcome is the change in how I approach kernel work: from primarily solving a product or code problem to thinking about the **quality, reviewability, maintainability and long-term integration of the upstream change**.
 
 ---
 
 ## Explore the work
 
 - [LFX Mentorship repository](https://github.com/sanjay-embedded/LFX-Linux-kernel-Spring-2026)
-- [Final report](https://github.com/sanjay-embedded/LFX-Linux-kernel-Spring-2026/blob/LFX-submission-v2/submission/final-report.md)
-- [Mentorship milestones](https://github.com/sanjay-embedded/LFX-Linux-kernel-Spring-2026/blob/LFX-submission-v2/mentorship-milestones.md)
-- [Mentorship growth](https://github.com/sanjay-embedded/LFX-Linux-kernel-Spring-2026/blob/LFX-submission-v2/mentorship-growth.md)
-- [Upstream review process](https://github.com/sanjay-embedded/LFX-Linux-kernel-Spring-2026/blob/LFX-submission-v2/upstream-review-process.md)
+- [Final report](https://github.com/sanjay-embedded/LFX-Linux-kernel-Spring-2026/blob/master/submission/final-report.md)
+- [Mentorship milestones](https://github.com/sanjay-embedded/LFX-Linux-kernel-Spring-2026/blob/master/mentorship-milestones.md)
+- [Mentorship growth](https://github.com/sanjay-embedded/LFX-Linux-kernel-Spring-2026/blob/master/mentorship-growth.md)
+- [Upstream review process](https://github.com/sanjay-embedded/LFX-Linux-kernel-Spring-2026/blob/master/upstream-review-process.md)
+- [Patch series](https://github.com/sanjay-embedded/LFX-Linux-kernel-Spring-2026/tree/master/patch-series)
 - [Linux kernel contributions](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/log/?qt=author&q=sanjay+chitroda)
 - [linux-next contributions](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/log/?qt=author&q=sanjay+chitroda)
 
 ---
 
-*This is the first draft of the mentorship blog and will be refined as the mentorship documentation and contribution data are finalized.*
+*This is a working draft of the mentorship blog and will be refined section-by-section before the final submission.*
