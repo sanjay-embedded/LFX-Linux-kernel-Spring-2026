@@ -12,11 +12,38 @@ title: "From Embedded Linux to Kernel Contributor"
 **Primary subsystem:** Industrial I/O (IIO)  
 **Mentors:** Shuah Khan & Brigham Campbell
 
-> **Before mentorship:** Embedded Linux / BSP / product development  
-> ↓  
-> **Mentorship:** Upstream Linux kernel development  
-> ↓  
-> **After mentorship:** Independent Linux kernel contributor
+### Before → Mentorship → After
+
+```text
+┌───────────────────────────────┐
+│       BEFORE MENTORSHIP       │
+│                               │
+│ Embedded Linux / BSP          │
+│ Device Drivers / Multimedia   │
+│ Product Development           │
+│ Yocto Project                 │
+└───────────────┬───────────────┘
+                │
+                ▼
+┌───────────────────────────────┐
+│          MENTORSHIP           │
+│                               │
+│ LFX Linux Kernel Mentorship   │
+│ Industrial I/O (IIO)          │
+│ Upstream Development          │
+│ Review / Mailing List         │
+└───────────────┬───────────────┘
+                │
+                ▼
+┌───────────────────────────────┐
+│        AFTER MENTORSHIP       │
+│                               │
+│ Independent Linux Kernel      │
+│ Contributor                   │
+│ Review + Development          │
+│ Continued Upstream Work       │
+└───────────────────────────────┘
+```
 
 ---
 
