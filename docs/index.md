@@ -82,28 +82,6 @@ My primary area was IIO driver modernization and maintenance. The work included:
 
 A recurring theme was **modernizing drivers in line with current kernel patterns as preventive maintenance**. The goal was not to wait for a reported bug and then repair it. Many changes were intended to reduce unnecessary lifetime, cleanup and error-path complexity and avoid potential failures or bugs before they become user-visible problems.
 
-## Kernel timeline
-
-The contribution journey also gave me a practical view of how kernel development moves through versions rather than existing as a single release event.
-
-```text
-Linux 7.1 development / early mentorship
-                 │
-                 ▼
-          Linux 7.2 merge window
-                 │
-                 ▼
-             Linux 7.2-rc
-                 │
-                 ▼
-        Linux 7.3 merge window
-                 │
-                 ▼
-       Continued linux-next work
-```
-
-Following the subsystem tree, linux-next and mainline helped me understand where a patch actually sits in the upstream development cycle and why timing, review and integration matter.
-
 ## From a patch to an upstream change
 
 My development workflow evolved during the mentorship:
@@ -212,26 +190,26 @@ The wider upstream workflow also involved tools and resources such as:
 
 The important lesson was to match validation to the actual claim being made by a patch and to be explicit about what was and was not tested.
 
-## What I learned from my mentors
+## What I learned
+
+### From my mentors
 
 Weekly discussions with Shuah Khan, together with guidance from Brigham Campbell during the mentorship, helped me understand that upstream contribution includes much more than writing code.
 
-Several recurring lessons shaped my approach:
+Key lessons included:
 
-- Start contributing before you feel that your knowledge is complete; participation accelerates learning.
+- Start contributing before your knowledge feels complete; participation accelerates learning.
 - Review and testing are valuable forms of contribution, not only patch authorship.
-- Understand subsystem trees, linux-next and merge windows so that you can see how work progresses.
-- Wait long enough for reviewers and the wider community to respond, while continuing parallel contribution work instead of waiting on one patch.
+- Understand subsystem trees, linux-next and the upstream development flow.
+- Continue contributing in parallel instead of waiting on a single patch.
 - Commit messages, patch structure, tags, threading and communication are part of the engineering work.
-- Use the standard kernel workflow and established subsystem conventions instead of inventing process for yourself.
+- Follow established subsystem conventions and workflows.
 
-## What I learned from fellow mentees
+### From fellow mentees
 
 Fellow mentees provided **motivation and accountability** throughout the program. Seeing others share progress, discuss review feedback and continue contributing helped maintain momentum during longer review cycles.
 
-The mentorship was not an isolated one-to-one learning experience; the progress of other mentees also made the community aspect of the program more visible.
-
-## What I learned from the Linux kernel community
+### From the Linux kernel community
 
 The Linux kernel community reinforced the importance of **constructive feedback and maintainability over cleverness**.
 
@@ -318,7 +296,3 @@ The most important outcome is the change in how I approach kernel work: from pri
 - [Patch series](https://github.com/sanjay-embedded/LFX-Linux-kernel-Spring-2026/tree/master/patch-series)
 - [Linux kernel contributions](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/log/?qt=author&q=sanjay+chitroda)
 - [linux-next contributions](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/log/?qt=author&q=sanjay+chitroda)
-
----
-
-*This is a working draft of the mentorship blog and will be refined section-by-section before the final submission.*
