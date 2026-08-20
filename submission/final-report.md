@@ -2,196 +2,203 @@
 
 **Final Report — Sanjay Chitroda**  
 **Mentorship:** 1 March 2026 – 31 August 2026  
-**Primary Subsystem:** Industrial I/O (IIO)  
+**Primary subsystem:** Industrial I/O (IIO)  
 **Mentors:** Shuah Khan & Brigham Campbell
 
 ---
 
-## Mentorship Snapshot
+## 1. Mentorship summary
 
-| Area | Summary |
-|---|---|
-| Focus | IIO driver modernization, resource management, error handling and upstream development |
-| Mainline | **20+ accepted commits** |
-| linux-next | **25+ additional commits** |
-| Contribution model | Focused cleanups → multi-revision series → infrastructure and cross-driver modernization |
-| Upstream workflow | Patch preparation, review, revision, linux-next tracking and mainline integration |
+The LFX Linux Kernel Mentorship gave me six months of focused experience contributing to the upstream Linux kernel, primarily in the Industrial I/O (IIO) subsystem.
 
-## Contribution Impact
+I entered the mentorship with more than eight years of Embedded Linux experience covering BSP development, Linux device drivers, multimedia systems, the Yocto Project and Linux kernel development in product environments. I already had upstream contribution experience through Yocto; the specific goal of this mentorship was to build deeper and sustained experience in the **upstream Linux kernel community**.
 
-During the mentorship, I focused on the Industrial I/O subsystem and worked on driver modernization, resource management, error handling, maintainership metadata and review-driven patch restructuring. The work progressed from focused cleanup changes to broader driver and infrastructure improvements requiring multiple review iterations.
+The mentorship focused on practical upstream development rather than a standalone coding exercise: understanding subsystem conventions, preparing reviewable patches, working through mailing-list review, following linux-next and mainline, and learning how maintainers evaluate long-term changes.
 
-Key contribution areas included:
+## 2. Graduation requirement and contribution result
 
-- Modernizing IIO drivers through `devm_*`, resource-lifetime and cleanup improvements.
-- Improving probe and error handling with APIs such as `dev_err_probe()`.
-- Improving driver correctness and lifecycle handling, including resource ordering and race-related changes.
-- Updating ADI IIO `MAINTAINERS` coverage based on actual upstream ownership and review coverage.
-- Working on HID-IIO infrastructure and cross-driver modernization in linux-next.
-- Applying maintainer and reviewer feedback to refine both implementation and patch-series structure.
+The LFX graduation requirement was at least five accepted upstream kernel patches during the mentorship. I exceeded that requirement with **21 accepted mainline commits** during the mentorship period.
 
-## Upstream Development Experience
+In addition, **27 further changes progressed through linux-next**, giving a total of **48 kernel contributions** across mainline and linux-next.
 
-The mentorship changed my development workflow from primarily implementing individual kernel changes to developing changes with **subsystem expectations, reviewability and upstream integration** in mind.
+For the graduation requirement, I count the substantive mainline changes below and do **not** rely on spelling-only or code-formatting-only patches as qualifying contributions.
 
-A typical workflow became:
+| Result | Count |
+|---|---:|
+| Accepted in mainline | **21** |
+| Additional accepted/progressing in linux-next | **27** |
+| Total contribution activity | **48** |
+| LFX minimum requirement | **5** |
+
+## 3. Main contribution areas
+
+The work was centered on **driver modernization and preventive maintenance** in IIO rather than waiting for a specific user-visible bug to be reported.
+
+The main areas were:
+
+- Modernizing drivers toward current kernel patterns.
+- Resource lifetime and ownership improvements using `devm_*` and devres.
+- `cleanup.h` patterns, including `__free` and `guard()` where appropriate.
+- Probe and error-path improvements, including `dev_err_probe()`.
+- Driver lifecycle and ordering correctness.
+- HID-IIO cross-driver modernization and common infrastructure work.
+- `MAINTAINERS` updates based on actual ownership and review coverage.
+
+A recurring goal was to reduce unnecessary complexity and potential future failure paths through conservative modernization. The intent was preventive: improve lifecycle, ownership and error handling before they become sources of bugs, rather than limiting the work to reacting to an existing failure.
+
+## 4. How my development workflow changed
+
+Before the mentorship, I had experience implementing kernel changes in product-focused Embedded Linux environments. During the mentorship, I learned to treat an upstream contribution as a complete engineering process:
 
 ```text
-Understand subsystem
+Understand the subsystem
         ↓
-Study existing implementation and patterns
+Study existing patterns and ownership
         ↓
-Define logical patch boundary
+Choose a logical change boundary
         ↓
 Implement and validate
         ↓
+Prepare the patch / series
+        ↓
 Submit to the mailing list
         ↓
-Respond to review
+Receive review
         ↓
-Revise or restructure the series
+Revise or restructure
         ↓
 Track linux-next
         ↓
 Track mainline
 ```
 
-The HID-IIO work was a major example of this evolution. The work expanded through several revisions and grew as large as a 36-patch series before review-driven restructuring separated common infrastructure from driver-specific conversions.
+The biggest change was in how I judged a patch. Before mentorship, I thought a good patch was primarily about fixing the code. During the mentorship I learned that a good upstream patch must also be easy to **review, maintain, integrate and bisect**.
 
-## Key Learning
+## 5. Review-driven learning
 
-- Patch scope should follow logical ownership and reviewability rather than implementation convenience.
-- A technically simple cleanup can expose deeper API, lifecycle or resource-management considerations.
-- `devm_*` conversions require understanding resource ownership and teardown ordering rather than mechanical API replacement.
-- Patches should remain independently understandable and applicable where possible.
-- Review feedback can change the architecture and scope of a contribution, not only individual lines of code.
-- Upstream collaboration requires precise communication, consistent patch structure and careful tracking of subsystem development trees.
-- `MAINTAINERS` represents sustainable ownership and review coverage, not simply contact information.
+The review process was one of the most valuable parts of the mentorship. Review feedback sometimes changed individual lines, but it could also change the scope and structure of an entire series.
 
-## Mentorship Outcome
+My first memorable experience was a multi-patch series spanning multiple subsystems. The series was not accepted as-is, but constructive review comments and reviewer guidance helped redirect the work and ultimately shaped the subsystem focus of my six-month journey.
 
-The mentorship provided practical experience contributing to upstream Linux beyond code changes alone. I developed a stronger understanding of IIO driver architecture, kernel resource-management patterns, mailing-list communication, maintainer expectations, patch-series organization and the complete path from submission through linux-next to mainline.
+The clearest review principle I took away was:
 
-I plan to continue contributing to IIO and expand my upstream kernel review and development activity beyond the mentorship.
+> **“The rule of thumb is one logical change per patch.”**
 
----
+Keeping logical boundaries makes a patch easier to review, maintain and bisect when a later regression needs investigation.
 
-# Upstream Contribution References
+The HID-IIO work was another important example. The work grew to a 36-patch series before review-driven restructuring separated common infrastructure from driver-specific conversions. That experience taught me that implementation relationships do not automatically define the right patch-series boundaries.
 
-The following sections preserve the contribution evidence generated from the Linux kernel repositories. The raw commit data is retained as provided by `git log --oneline`; only the presentation and ordering of the report have been changed.
+## 6. Representative accepted contributions
 
-## Mainline Kernel — Accepted Commits
+Rather than reproducing a raw `git log`, the following table groups the mainline work into representative engineering themes. The commit links provide the exact upstream evidence.
 
-**Mainline author log:**
+| Area | Representative contribution | Lesson / impact |
+|---|---|---|
+| `mma8452` | `dev_err_probe()`, I2C error handling, IRQ/resource decisions | Probe/error-path reasoning and careful resource ownership |
+| ADXL3xx | `dev_err_probe()`, devm-managed mutex initialization | Preventive modernization and consistent lifecycle handling |
+| SSP sensors | Delayed-work cancellation and cleanup | Remove-path correctness and workqueue lifetime |
+| HID-IIO | Callback setup vs. device exposure ordering | Lifecycle, concurrency and externally visible state |
+| `MAINTAINERS` | IIO ownership/review coverage updates | Sustainable upstream ownership and review paths |
+| ST sensors | Temporary buffer/lifetime cleanup | Simpler resource handling and maintainability |
 
-`git log --author="Sanjay Chitroda" --since="2026-03-01" --pretty --format=oneline`
+## 7. Accepted mainline contributions
 
-```text
-32a5c04d457540af67507494f30261580213df94 iio: accel: mma8452: Use dev_err_probe()
+The following are the **21 accepted mainline commits** attributed to me during the mentorship period. The list is intentionally separated from linux-next work so the graduation evidence is easy to verify.
 
-e9f143941584ae27e9981649a3f9916c322ee01d iio: accel: mma8452: sort headers alphabetically
+| Commit | Subsystem / change | Type |
+|---|---|---|
+| [32a5c04d](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=32a5c04d457540af67507494f30261580213df94) | `iio: accel: mma8452: Use dev_err_probe()` | Error handling |
+| [0a6726ec](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=0a6726ec20cd4c0101f2de0ca485a11676224dea) | `iio: accel: mma8452: switch to non-devm request_threaded_irq()` | Resource / IRQ lifecycle |
+| [5bdff291](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=5bdff291d20c31b365d9ddfe9c426fbfb41da5bb) | `iio: accel: mma8452: handle I2C read error(s)` | Error handling |
+| [bdc573d5](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=bdc573d5c33b90a21c3799c1b3f08dc8092188af) | `MAINTAINERS: Update maintainer for IIO drivers` | Ownership |
+| [d350cb2b](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=d350cb2b23aee0f9a5107e87dc80929f93a04b00) | `MAINTAINERS: Update Analog Devices IIO drivers entry` | Ownership |
+| [eedf7602](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=eedf7602fbd929e97e0c480da501dc7a34beb2a8) | `iio: ssp_sensors: cancel delayed work_refresh on remove` | Lifecycle |
+| [d47d6bdc](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=d47d6bdc81cfe56a1e7af40528ac81162a547e1b) | `iio: accel: adxl372: Use dev_err_probe()` | Error handling |
+| [24ab1d9a](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=24ab1d9a2fc4c1e4f2546bebcee2b420295120a0) | `iio: accel: adxl372: Use devm-managed mutex initialization` | Resource management |
+| [f710a0fa](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=f710a0fa462ce5fc356ab4a77787b49fc1f47f7b) | `iio: accel: adxl367: Use devm-managed mutex initialization` | Resource management |
+| [70cc2c65](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=70cc2c65c23ba212c6de61a727131ebf94a66610) | `iio: accel: adxl355: Use dev_err_probe()` | Error handling |
+| [07fd6291](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=07fd62916c7d2adb65926b989d337c7bfc7b2357) | `iio: accel: adxl355_core: Use devm-managed mutex initialization` | Resource management |
+| [1ed49c5e](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=1ed49c5e6b6da868ff226706d54919e1e10cf991) | `iio: accel: adxl380: Use devm-managed mutex initialization` | Resource management |
+| [c27837e4](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=c27837e49fd1fa0eae1b6d3988d2ae5a9d924739) | `iio: accel: adxl313: Use dev_err_probe()` | Error handling |
+| [d2ed8a2f](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=d2ed8a2f630abe69d87eeffb2781df9237d7c1dd) | `iio: accel: adxl313_core: Use devm-managed mutex initialization` | Resource management |
+| [1ac30f58](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=1ac30f58f0336287203109872f71a81d4bb271db) | `iio: st_sensors: drop temporary kmalloc buffer and reuse buffer_data` | Buffer / lifetime |
+| [74c39233](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=74c3923344c6ad4b7199948d54dc947504c39483) | `iio: ssp_sensors: cleanup codestyle warning` | Cleanup* |
+| [a9ecd9a1](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=a9ecd9a121752f2d7bb69da264bda65b6b6e6c6e) | `iio: ssp_sensors: cleanup codestyle check` | Cleanup* |
+| [dcc80f2f](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=dcc80f2fdff721ced4ea1ef7a3ea43f3fbe0b27a) | `iio: ssp_sensors: cleanup codestyle warning` | Cleanup* |
+| [b4f6b124](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=b4f6b124467f5d770e170d93e6e12a2fe3977927) | `iio: accel: mma8452: cleanup codestyle warning` | Cleanup* |
+| [e9f14394](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=e9f143941584ae27e9981649a3f9916c322ee01d) | `iio: accel: mma8452: sort headers alphabetically` | Cleanup* |
 
-b4f6b124467f5d770e170d93e6e12a2fe3977927 iio: accel: mma8452: cleanup codestyle warning
+*Cleanup/spelling/code-format changes are retained as contribution history for completeness, but are not relied upon for the LFX graduation requirement.
 
-0a6726ec20cd4c0101f2de0ca485a11676224dea iio: accel: mma8452: switch to non-devm request_threaded_irq()
+## 8. Additional linux-next contributions
 
-5bdff291d20c31b365d9ddfe9c426fbfb41da5bb iio: accel: mma8452: handle I2C read error(s) in mma8452_read()
+A further **27 changes** progressed through linux-next during the mentorship. These included HID-IIO lifecycle fixes, devres modernization, type cleanups and cross-driver improvements.
 
-bdc573d5c33b90a21c3799c1b3f08dc8092188af MAINTAINERS: Update maintainer for IIO drivers
+Representative examples include:
 
-d350cb2b23aee0f9a5107e87dc80929f93a04b00 MAINTAINERS: Update Analog Devices IIO drivers entry
+- `iio: accel: hid-sensor-accel-3d: Avoid race between callback setup and device exposure`
+- `iio: magnetometer: hid-sensor-magn-3d: Avoid race between callback setup and device exposure`
+- `iio: temperature: hid-sensor-temperature: switch to non-devm iio_device_register()`
+- `iio: hid-sensors: use common device for devres`
+- Multiple HID-IIO conversions from `unsigned int` to `u32`
+- IIO resource-management TODO refinement
+- `media: i2c: gc0310: Use devm_v4l2_sensor_clk_get()`
 
-74c3923344c6ad4b7199948d54dc947504c39483 iio: ssp_sensors: cleanup codestyle warning
+The complete author log is retained in the repository history and linked below.
 
-eedf7602fbd929e97e0c480da501dc7a34beb2a8 iio: ssp_sensors: cancel delayed work_refresh on remove
+## 9. Testing, validation and tools
 
-a9ecd9a121752f2d7bb69da264bda65b6b6e6c6e iio: ssp_sensors: cleanup codestyle check
+Testing was matched to the claim being made by each patch. For driver modernization and cleanup work, validation commonly included:
 
-dcc80f2fdff721ced4ea1ef7a3ea43f3fbe0b27a iio: ssp_sensors: cleanup codestyle warning
+- Kernel builds and warning checks.
+- `W=1` builds where applicable.
+- `checkpatch.pl` and kernel coding-style checks.
+- Sparse and `coccicheck` where applicable.
+- Source-level inspection of probe, remove and error paths.
+- Review of lifecycle and ordering changes against existing subsystem patterns.
+- linux-next tracking after acceptance into subsystem development.
 
-d47d6bdc81cfe56a1e7af40528ac81162a547e1b iio: accel: adxl372: Use dev_err_probe()
+Dedicated hardware was not available for every IIO driver, so compilation, static analysis and code inspection are **not represented as hardware validation**. Where a change depended on hardware-specific behavior, I treated the absence of hardware as a limitation rather than claiming validation that was not performed.
 
-24ab1d9a2fc4c1e4f2546bebcee2b420295120a0 iio: accel: adxl372: Use devm-managed mutex initialization
+Other tools and resources used throughout the mentorship included Git, `b4`, mailing-list archives, `lore.kernel.org`, Sashiko review results and the Linux kernel development trees.
 
-f710a0fa462ce5fc356ab4a77787b49fc1f47f7b iio: accel: adxl367: Use devm-managed mutex initialization
+## 10. Syzbot and bug-analysis experience
 
-70cc2c65c23ba212c6de61a727131ebf94a66610 iio: accel: adxl355: Use dev_err_probe()
+I did not use a Syzbot bug as the primary driver for the mentorship contribution work. The project started from a **preventive-maintenance mindset**: modernize existing IIO drivers according to current kernel practices, improve ownership and lifecycle handling, and reduce potential failure paths before a user-visible bug is reported.
 
-07fd62916c7d2adb65926b989d337c7bfc7b2357 iio: accel: adxl355_core: Use devm-managed mutex initialization
+As a result, there are no Syzbot bugs in this report claimed as fixed. I do not want to manufacture a bug-fixing narrative where the actual mentorship work was focused elsewhere.
 
-1ed49c5e6b6da868ff226706d54919e1e10cf991 iio: accel: adxl380: Use devm-managed mutex initialization
+The self-learning and analysis work instead centered on reviewing existing driver behavior, understanding subsystem lifecycle and resource ownership, following review discussions, and reasoning about possible failure paths introduced by ordering or resource-management changes.
 
-c27837e49fd1fa0eae1b6d3988d2ae5a9d924739 iio: accel: adxl313: Use dev_err_probe()
+## 11. What I learned from the mentorship
 
-d2ed8a2f630abe69d87eeffb2781df9237d7c1dd iio: accel: adxl313_core: Use devm-managed mutex initialization
+### From my mentors
 
-1ac30f58f0336287203109872f71a81d4bb271db iio: st_sensors: drop temporary kmalloc buffer and reuse buffer_data
-```
+Shuah Khan's office-hour discussions and Brigham Campbell's guidance helped me understand that upstream contribution includes much more than writing code. Important lessons included starting to contribute before knowledge feels complete, learning how to validate and review other changes, understanding linux-next and merge windows, and using standard kernel communication and patch-management practices.
 
-## linux-next Kernel — Accepted Commits
+### From fellow mentees
 
-**linux-next author log:**
+Fellow mentees provided **motivation and accountability**. Seeing others make progress, discuss reviews and continue submitting work helped maintain momentum during longer review cycles.
 
-`git log --author="Sanjay Chitroda" --since="2026-03-01" --pretty --format=oneline`
+### From the Linux kernel community
 
-```text
-15b8b49933507c9f437af51c2da626dc5840ef26 media: i2c: gc0310: Use devm_v4l2_sensor_clk_get()
+The community reinforced the importance of **constructive feedback and maintainability over cleverness**. The review process showed that the quality of an upstream change is measured not only by whether it works, but also by whether other developers can understand, review, maintain and integrate it.
 
-967d066f5334740f656577bc51c381a1bb707b61 iio: temperature: hid-sensor-temperature: switch to non-devm iio_device_register()
+## 12. Mentorship outcome
 
-2e2f2de7532cbbc2269de8be20ec709606c6e79b iio: hid-sensors: Use implicit NULL pointer checks
+The biggest outcome was a change in how I approach kernel development.
 
-636deb551c2da89e798b2057d417be86ab9a3efc iio: hid-sensors: align function parenthesis for readability
+I entered the mentorship with product-focused Embedded Linux and kernel experience. I leave with practical experience in an upstream subsystem, mailing-list development, review-driven patch restructuring, linux-next tracking and mainline integration.
 
-eb787019c42072cf13470afca673dab0b49cabb6 iio: accel: hid-sensor-accel-3d: Avoid race between callback setup and device exposure
+The central lesson is:
 
-3e37afb5697e1b30bd739fe38909d3dbf2493bb9 iio: magnetometer: hid-sensor-magn-3d: Avoid race between callback setup and device exposure
+> **A good upstream patch is not only about fixing the code. It is about making the change easy to review, maintain and integrate.**
 
-7d362d339391780c964b06bec9b209b0f9e229b4 iio: light: hid-sensor-als: Avoid race between callback setup and device exposure
+I plan to continue contributing to IIO, participate more actively in upstream review and expand my Linux kernel development experience beyond the mentorship.
 
-49e663471992611f586598d2bbd23f94b760f9fa iio: light: hid-sensor-prox: Avoid race between callback setup and device exposure
-
-724d0351cd08eb93f3cd9021c3a26ce1f1c79f7f iio: pressure: hid-sensor-press: Avoid race between callback setup and device exposure
-
-50d8d72e4f28202e18a687ed868ddd3225b2ac1b iio: gyro: hid-sensor-gyro-3d: Avoid race between callback setup and device exposure
-
-28afc251ad71646d501191225ddd4db57c670a47 iio: orientation: hid-sensor-incl-3d: Avoid race between callback setup and device exposure
-
-0e32649a7cf3cd784862f8dc0c68a5134731bfff iio: orientation: hid-sensor-rotation: Avoid race between callback setup and device exposure
-
-a30824bbfb22f890df7e92448522b696c62ce965 iio: hid-sensors: add/remove blank line
-
-0c50c9e3b2a4acb2b5b238ba58537f5525532527 iio: temperature: hid-sensor-temperature: use common device for devres
-
-d9290c908d6f31bcdf79c1fec9b7287cf65df19b iio: position: hid-sensor-custom-intel-hinge: use common device for devres
-
-cff496bda5128dd9cf7a38fc2933440ee58b8ad1 iio: humidity: hid-sensor-humidity: use common device for devres
-
-ef4c70122013c1e58b52a0d10bbca9a688be095a iio: hid-sensor-custom-intel-hinge: use u32 instead of unsigned int
-
-dc0cbeb497b00ef1c1fc307fd7d9250893dc3f43 iio: hid-sensor-humidity: use u32 instead of unsigned int
-
-46d67896786c8a07e5ad6a9d6ace6cdd312ef158 iio: hid-sensor-temperature: use u32 instead of unsigned int
-
-cae5bd202cfcac46762286591618b771c124727c iio: todo: fix typo and refine resource management items
-
-11f8f7e813edcab1b8bedd0a95da9d2c8835dc93 iio: pressure: hid-sensor-press: use u32 instead of unsigned
-
-d92974cded424b8161dd6b41e45fd2e7a2c69dbc iio: orientation: hid-sensor-rotation: use u32 instead of unsigned
-
-2253c055bcdc298e49b2d2d5abcb784e2e9fd727 iio: orientation: hid-sensor-incl-3d: use u32 instead of unsigned
-
-946d6045f442ad1c705c5dfb7f48747e84a4180a iio: light: hid-sensor-prox: use u32 instead of unsigned
-
-d5b231ec6b0903480bae49475c7acd31e0077a4c iio: light: hid-sensor-als: use u32 instead of unsigned
-
-b720b5d6835cd8a61db248b1ff5798a69a470719 iio: accel: hid-sensor-accel-3d: use u32 instead of unsigned
-
-b66a56fae18f1d348d5e8dcfcb75d7800ab936f9 iio: gyro: hid-sensor-gyro-3d: use u32 instead of unsigned
-```
-
-## Contribution Sources
+## Contribution sources
 
 - **Mainline:** https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/log/?qt=author&q=sanjay+chitroda
 - **linux-next:** https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/log/?qt=author&q=sanjay+chitroda
 - **Mentorship repository:** https://github.com/sanjay-embedded/LFX-Linux-kernel-Spring-2026
+- **Kernel upstream contribution guide:** https://github.com/sanjay-embedded/oss-guide/blob/master/kernel-upstream.rst
