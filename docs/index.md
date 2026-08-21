@@ -82,34 +82,6 @@ My primary area was IIO driver modernization and maintenance. The work included:
 
 A recurring theme was **modernizing drivers in line with current kernel patterns as preventive maintenance**. The goal was not to wait for a reported bug and then repair it. Many changes were intended to reduce unnecessary lifetime, cleanup and error-path complexity and avoid potential failures or bugs before they become user-visible problems.
 
-## From a patch to an upstream change
-
-My development workflow evolved during the mentorship:
-
-```text
-Understand the subsystem
-        ↓
-Study existing implementation and kernel patterns
-        ↓
-Identify a meaningful, reviewable change
-        ↓
-Implement and validate
-        ↓
-Prepare the patch / series
-        ↓
-Submit to the mailing list
-        ↓
-Receive maintainer and reviewer feedback
-        ↓
-Revise or restructure
-        ↓
-Track linux-next
-        ↓
-Track mainline integration
-```
-
-The most important lesson was that **writing the code is only one part of an upstream contribution**.
-
 ## What code review taught me
 
 The review process became one of the most valuable parts of the mentorship. Review was not simply about correcting lines of code; it could change the scope, structure or architecture of a patch series.
@@ -140,23 +112,19 @@ That experience was important because it changed how I viewed an unsuccessful fi
 
 Rather than listing every patch, the following examples represent the different types of engineering lessons I gained.
 
-### Driver modernization and error handling
+### Driver modernization and subsystem maintenance
 
 The `mma8452` and ADXL3xx work provided focused examples of driver modernization, including `dev_err_probe()`, devm-managed resources and error-path improvements.
 
 These changes reinforced that small patches can still require careful reasoning about probe failures, resource lifetime and kernel conventions.
+
+The work also included `MAINTAINERS` updates, which reinforced that upstream contribution involves sustainable ownership and review coverage, not only code changes.
 
 ### HID-IIO lifecycle and concurrency
 
 The HID-IIO work went beyond mechanical cleanup. Several drivers required changes to avoid races between callback setup and device exposure.
 
 This highlighted an important principle: **API ordering can be part of correctness**. A device should not become externally visible while the state required for its callbacks or operation is still being established.
-
-### Maintainer and ownership metadata
-
-Updating `MAINTAINERS` entries was another useful upstream lesson. Maintainer information is not simply a list of email addresses; it represents sustainable ownership and review coverage for code.
-
-This showed that upstream contribution also includes the community and maintenance model around the code, not only the implementation itself.
 
 ## Contribution snapshot
 
@@ -165,45 +133,41 @@ This showed that upstream contribution also includes the community and maintenan
 | Program | LFX Linux Kernel Mentorship — Spring 2026 |
 | Duration | 1 March 2026 – 31 August 2026 |
 | Primary subsystem | Industrial I/O (IIO) |
-| Mainline | **21 accepted commits** |
+| Mainline | **20 accepted commits** |
 | linux-next | **27 additional commits** |
-| Total contributions | **48** |
+| Total contributions | **47** |
 | Main focus | Driver modernization, resource management, error handling and lifecycle improvements |
 | Development model | Submission → review → revision → linux-next → mainline |
 
 The numbers provide a useful measure of activity, but the larger outcome was learning how to develop changes with upstream review and long-term maintenance in mind.
 
-## Testing and tools
+## Validation and workflow
 
-The validation approach depended on the type of change and available hardware. For many IIO driver cleanups and modernization patches, validation included kernel builds, static analysis and source-level checks, together with careful review of probe, remove and error paths. Dedicated hardware was not available for every driver, so I have avoided presenting compilation or static analysis as hardware validation.
+The validation approach depended on the type of change and available hardware.
 
-The wider upstream workflow also involved tools and resources such as:
+Many of the contributions focused on driver modernization, resource management and lifecycle improvements. Validation therefore relied on a combination of kernel builds, warning analysis, source-level review and careful reasoning about probe, remove and error paths.
 
-- Kernel build and warning checks
+Dedicated hardware was not available for every driver, so compilation, static analysis and review were used to increase confidence in the changes, while avoiding claims of hardware validation where none was performed.
+
+The workflow commonly involved:
+
+- Kernel builds with warning checks (`W=1`)
 - `checkpatch.pl`
-- Sparse and static analysis where applicable
-- Coccinelle / `coccicheck` where applicable
-- Git and patch-series tooling
-- `lore.kernel.org` and mailing-list archives
-- linux-next tracking
-- Mainline kernel history
+- Review of probe, remove and error paths
+- `lore.kernel.org` for patch discussions and review history
+- linux-next tracking before mainline integration
+- `git`, `b4`, `cscope` and standard patch-series workflow
+- Sashiko-reported issues and review feedback where applicable
 
-The important lesson was to match validation to the actual claim being made by a patch and to be explicit about what was and was not tested.
+The most important lesson was to match validation to the actual claim being made by a patch and to be explicit about what was and was not tested.
 
 ## What I learned
 
 ### From my mentors
 
-Weekly discussions with Shuah Khan, together with guidance from Brigham Campbell during the mentorship, helped me understand that upstream contribution includes much more than writing code.
+Weekly discussions with Shuah Khan and guidance from Brigham Campbell helped me better understand how the Linux kernel community operates beyond the code itself.
 
-Key lessons included:
-
-- Start contributing before your knowledge feels complete; participation accelerates learning.
-- Review and testing are valuable forms of contribution, not only patch authorship.
-- Understand subsystem trees, linux-next and the upstream development flow.
-- Continue contributing in parallel instead of waiting on a single patch.
-- Commit messages, patch structure, tags, threading and communication are part of the engineering work.
-- Follow established subsystem conventions and workflows.
+The mentorship provided practical guidance on upstream workflows, review etiquette, testing expectations, patch management and long-term contribution strategies. It also reinforced the importance of consistency, patience and continuous participation in the community.
 
 ### From fellow mentees
 
