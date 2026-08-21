@@ -165,9 +165,9 @@ This showed that upstream contribution also includes the community and maintenan
 | Program | LFX Linux Kernel Mentorship — Spring 2026 |
 | Duration | 1 March 2026 – 31 August 2026 |
 | Primary subsystem | Industrial I/O (IIO) |
-| Mainline | **21 accepted commits** |
+| Mainline | **20 accepted commits** |
 | linux-next | **27 additional commits** |
-| Total contributions | **48** |
+| Total contributions | **47** |
 | Main focus | Driver modernization, resource management, error handling and lifecycle improvements |
 | Development model | Submission → review → revision → linux-next → mainline |
 
