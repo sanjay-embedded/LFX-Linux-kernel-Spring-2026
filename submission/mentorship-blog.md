@@ -21,6 +21,8 @@ Embedded Linux / BSP / Product Development
 
 The mentorship focused on driver modernization and preventive maintenance, resource ownership and lifecycle, review-driven patch development, and the upstream workflow from mailing-list submission through linux-next and mainline.
 
+During the mentorship, **20 contributions reached mainline Linux**, with **27 additional changes progressing through linux-next**.
+
 A key lesson was that a good upstream patch is not only about fixing code; it must also be easy to review, maintain, integrate and bisect. My most memorable review guidance was:
 
 > **“The rule of thumb is one logical change per patch.”**
