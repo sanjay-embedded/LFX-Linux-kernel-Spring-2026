@@ -23,7 +23,7 @@ The following sections provide author-log snapshots from mainline Linux and linu
 
 https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/log/?qt=author&q=sanjay+chitroda
 
-The report uses the upstream cgit author-log snapshot as the contribution evidence rather than reproducing the commit list as manually selected entries.
+<img width="4320" height="2448" alt="Torvald-mainline" src="https://github.com/user-attachments/assets/65762ed3-4e75-4841-b398-7cc5c7f66431" />
 
 ## Additional linux-next Contributions
 
@@ -32,6 +32,9 @@ The report uses the upstream cgit author-log snapshot as the contribution eviden
 **Author log:**
 
 https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/log/?qt=author&q=sanjay+chitroda
+
+<img width="1080" height="743" alt="Linux-next" src="https://github.com/user-attachments/assets/ad5d9c5a-04ba-45c5-83d9-a7e2b9f07862" />
+
 
 ## References
 
