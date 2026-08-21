@@ -82,34 +82,6 @@ My primary area was IIO driver modernization and maintenance. The work included:
 
 A recurring theme was **modernizing drivers in line with current kernel patterns as preventive maintenance**. The goal was not to wait for a reported bug and then repair it. Many changes were intended to reduce unnecessary lifetime, cleanup and error-path complexity and avoid potential failures or bugs before they become user-visible problems.
 
-## From a patch to an upstream change
-
-My development workflow evolved during the mentorship:
-
-```text
-Understand the subsystem
-        ↓
-Study existing implementation and kernel patterns
-        ↓
-Identify a meaningful, reviewable change
-        ↓
-Implement and validate
-        ↓
-Prepare the patch / series
-        ↓
-Submit to the mailing list
-        ↓
-Receive maintainer and reviewer feedback
-        ↓
-Revise or restructure
-        ↓
-Track linux-next
-        ↓
-Track mainline integration
-```
-
-The most important lesson was that **writing the code is only one part of an upstream contribution**.
-
 ## What code review taught me
 
 The review process became one of the most valuable parts of the mentorship. Review was not simply about correcting lines of code; it could change the scope, structure or architecture of a patch series.
@@ -140,23 +112,19 @@ That experience was important because it changed how I viewed an unsuccessful fi
 
 Rather than listing every patch, the following examples represent the different types of engineering lessons I gained.
 
-### Driver modernization and error handling
+### Driver modernization and subsystem maintenance
 
 The `mma8452` and ADXL3xx work provided focused examples of driver modernization, including `dev_err_probe()`, devm-managed resources and error-path improvements.
 
 These changes reinforced that small patches can still require careful reasoning about probe failures, resource lifetime and kernel conventions.
+
+The work also included `MAINTAINERS` updates, which reinforced that upstream contribution involves sustainable ownership and review coverage, not only code changes.
 
 ### HID-IIO lifecycle and concurrency
 
 The HID-IIO work went beyond mechanical cleanup. Several drivers required changes to avoid races between callback setup and device exposure.
 
 This highlighted an important principle: **API ordering can be part of correctness**. A device should not become externally visible while the state required for its callbacks or operation is still being established.
-
-### Maintainer and ownership metadata
-
-Updating `MAINTAINERS` entries was another useful upstream lesson. Maintainer information is not simply a list of email addresses; it represents sustainable ownership and review coverage for code.
-
-This showed that upstream contribution also includes the community and maintenance model around the code, not only the implementation itself.
 
 ## Contribution snapshot
 
