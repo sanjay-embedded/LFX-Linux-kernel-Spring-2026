@@ -1,144 +1,111 @@
 # Series 002 – SSP Sensors: Resource Cleanup & Driver Modernization
 
-## 1. Executive Summary
+## Executive Summary
 
-The SSP Sensors series represents one of the longest-running engineering efforts during the mentorship. Initially proposed as a simple cleanup to improve resource management, the series evolved through seven revisions into a comprehensive driver modernization effort. Continuous review from the IIO community expanded the scope beyond cleanup, introducing managed resource APIs, reusable helper abstractions, improved probe error handling, embedded RX buffer management, and overall maintainability improvements. Several changes have already been accepted, while the remaining hardware-dependent patches are awaiting validation before final integration.
+The SSP Sensors series was one of the longest-running engineering efforts during the mentorship. It began as a focused resource-cleanup effort and evolved through multiple revisions into broader driver modernization involving managed resources, reusable buffers, probe-path improvements and maintainability work.
 
-## 2. Project Overview
+The series demonstrates how upstream review can progressively shape both implementation and patch structure, while hardware-dependent changes may continue separately until validation is available.
+
+## Quick Facts
 
 | Item | Details |
 |------|---------|
-| Series | iio: ssp_sensors: improve resource cleanup (latest title) |
+| Series | `iio: ssp_sensors: improve resource cleanup` |
 | Subsystem | Industrial I/O (IIO) |
 | Driver | SSP Sensors |
-| Duration | March 2026 – May 2026 |
 | Initial Submission | v2 – 11 March 2026 |
 | Latest Revision | v8 – 15 May 2026 |
 | Revisions | v2 → v8 |
 | Patch Count | 1 → 12 |
-| Status | Partially merged |
-| Current State | Waiting for hardware validation |
+| Status | Under Review |
+| Current State | Hardware-dependent work remains |
 
-## 3. Background
+## Background
 
-Following feedback received on the initial cross-subsystem cleanup series (Series 000), subsequent work focused on subsystem-specific improvements. Experience gained from the ST Sensors series (Series 001) further shaped the approach taken here, resulting in a more structured, incremental, and review-friendly modernization of the SSP Sensors driver.
+Following Series 000, the work moved into subsystem-focused IIO development. Experience from Series 001 also influenced the approach, particularly the preference for improving underlying resource ownership and allocation patterns instead of performing purely mechanical API conversions.
 
-Why SSP Sensors were selected
+## Initial Objective
 
-- Representative of common IIO driver patterns and cleanup opportunities.
-- Hardware exposes interesting buffering and probe complexity that benefit from managed resources.
-
-Relationship to Series 000
-
-- Series 000 provided the initial exploratory approach and reviewer feedback emphasizing subsystem scoping.
-
-Relationship to Series 001
-
-- Series 001's experience in reusing driver-owned buffers informed the reusable RX buffer design and validated the approach of focusing on design improvements rather than mechanical conversions.
-
-How earlier reviewer feedback influenced this work
-
-- Reviewers encouraged splitting changes into smaller, subsystem-focused revisions, introducing helper abstractions, and validating hardware-dependent changes before final merge.
-
-## 4. Engineering Goals
-
-- Improve resource lifetime management.
-- Remove unnecessary allocations.
-- Introduce managed resource APIs.
+- Improve SSP Sensors resource lifetime management.
+- Remove unnecessary temporary allocations.
 - Simplify cleanup paths.
 - Improve probe error handling.
-- Increase driver maintainability.
-- Reduce duplicated code.
+- Establish a maintainable basis for further modernization.
 
-## 5. Technical Evolution
+## Technical Evolution
 
-### Phase 1 – Cleanup Foundation (v2 → v4)
+### Phase 1 – Cleanup Foundation
 
-- Initial cleanup.h adoption.
-- Reusable RX buffer.
-- Cleanup path simplification.
-- Patch organization improvements.
+The early revisions focused on cleanup-path simplification, reusable buffering and initial `cleanup.h` adoption.
 
-### Phase 2 – Driver Modernization (v5 → v6)
+### Phase 2 – Resource Modernization
 
-- devm_* conversions.
-- guard() evaluation and refinement.
-- devm_add_action_or_reset().
-- Probe-path improvements.
-- dev_err_probe().
-- Embedded RX buffer.
+The series expanded into `devm_*` conversions, cleanup actions, `guard()` evaluation, probe improvements and `dev_err_probe()` usage.
 
-### Phase 3 – Maintainability & Refinement (v7 → v8)
+### Phase 3 – Refinement
 
-- Helper APIs.
-- Refactoring.
-- Cleaner ownership.
-- Warning fixes.
-- Simplified return paths.
-- Hardware validation discussion.
+Later revisions focused on helper abstractions, ownership clarity, return-path simplification and hardware validation requirements.
 
-## 6. Review Summary
+## Review Evolution
 
-| Reviewer | Key Contributions |
-|----------|-------------------|
-| Jonathan Cameron | Encouraged functional separation, questioned cleanup-only changes, requested hardware validation before merge, and guided overall series direction. |
-| Andy Shevchenko | Recommended kernel coding style improvements, local struct device *, appropriate guard() usage, helper abstractions, and simplified return paths. |
-| David Lechner | Reviewed commit messages, terminology, helper usage, and resource management details. |
+Continuous IIO review broadened the work beyond cleanup. Reviewers encouraged logical separation of functional improvements, careful resource ownership and validation of hardware-dependent changes before final acceptance.
 
-## 7. Interesting Engineering Discussions
+## Interesting Engineering Discussions
 
-- Eliminating repeated RX buffer allocations through an embedded reusable buffer.
-- Choosing devm_* resource management versus explicit cleanup.
-- Appropriate use of guard() and cleanup.h.
-- Separating functional improvements from mechanical cleanup.
-- Balancing refactoring with review complexity.
-- Hardware validation before merging functional changes.
+- Reusing embedded driver-owned buffers instead of allocating temporary resources.
+- Choosing between managed and explicit resource lifetime where teardown ordering matters.
+- Using `guard()` and cleanup helpers appropriately rather than mechanically.
+- Improving probe failure handling with current kernel APIs.
+- Balancing useful refactoring against review complexity.
+- Waiting for hardware validation when source-level reasoning cannot fully establish behavior.
 
-## 8. Revision Timeline
+## Revision Timeline
 
 | Revision | Evolution |
 |----------|-----------|
-| v2 → v4 | Initial cleanup.h conversion evolved into a structured multi-patch series with reusable RX buffer and simplified cleanup. |
-| v5 → v6 | Expanded into driver modernization with managed resources, cleanup actions, and probe improvements. |
-| v7 → v8 | Focus shifted to correctness, helper abstractions, maintainability, and hardware validation. |
+| v2 → v4 | Initial cleanup and reusable-buffer work evolved into a structured IIO series. |
+| v5 → v6 | Added managed-resource and probe-path modernization. |
+| v7 → v8 | Refined helper usage, ownership, maintainability and hardware-validation requirements. |
 
-## 9. Current Status
+## Final / Current Outcome
 
 | Item | Status |
 |------|--------|
+| Final Revision | v8 |
 | Mainline | Partially merged |
 | linux-next | Partially applied |
-| Current State | Waiting for hardware validation |
-| Next Step | Validate on hardware, address remaining review comments, resend final revision if required |
+| Current Status | Under Review |
+| Remaining Work | Hardware-dependent validation and any required follow-up revisions |
 
-## 10. Key Lessons Learned
+## Why This Series Matters
 
-- Large upstream series evolve incrementally through continuous review.
-- Functional improvements are preferred over mechanical API conversions.
-- Keep changes logically independent to simplify review.
-- Hardware-dependent modifications should be validated before requesting final acceptance.
-- Well-designed helper abstractions reduce duplication and improve maintainability.
+This series shows the transition from a simple cleanup idea to a sustained upstream modernization effort. It demonstrates that useful driver maintenance requires understanding resource ownership, subsystem APIs, error paths and validation limits rather than applying managed-resource APIs mechanically.
 
-## 11. Looking Back
+## Key Lessons Learned
 
-If starting this series today, I would:
+- Large upstream series evolve through continuous review.
+- Functional value should be separated from mechanical cleanup where possible.
+- Resource-management conversions require ownership and teardown reasoning.
+- Hardware-dependent changes should not be presented as fully validated without hardware evidence.
+- Helper abstractions can improve maintainability when they are introduced for a clear reason.
 
-- Separate functional and cleanup changes earlier.
-- Introduce helper abstractions before broader refactoring.
-- Plan hardware validation earlier in the review cycle.
-- Keep large modernization efforts modular to reduce reviewer load.
+## Looking Back
 
-## 12. Related Journey
+If starting this work today, I would separate functional and cleanup changes earlier, identify hardware-validation requirements at the beginning, and keep larger modernization efforts modular so that individually valuable patches can be accepted independently.
 
-Journey: journey/growth.md
+## Related Series
 
-Previous Series: Series 000, Series 001
+- [Series 000 – Exploratory cleanup.h](series-000-exploratory-cleanup-h.md)
+- [Series 001 – ST Sensors buffer reuse](series-001-st-sensors-buffer-reuse.md)
+- [Series 005 – MMA8452 modernization](series-005-mma8452-modernization.md)
 
-## 13. Related Learning
+## Related Learning
 
-learning/review-process.md
+- [Mentorship growth](../mentorship-growth.md)
+- [Mentorship milestones](../mentorship-milestones.md)
+- [Upstream review process](../upstream-review-process.md)
 
-## 14. References
+## References
 
 - [Lore v2](https://lore.kernel.org/all/20260311174151.3441429-1-sanjayembedded@gmail.com/)
 - [Lore v3](https://lore.kernel.org/all/20260315125509.857195-1-sanjayembedded@gmail.com/)
@@ -147,11 +114,11 @@ learning/review-process.md
 - [Lore v6](https://lore.kernel.org/all/20260415050749.3858046-1-sanjayembedded@gmail.com/)
 - [Lore v7](https://lore.kernel.org/all/20260426091710.3722035-1-sanjayembedded@gmail.com/)
 - [Lore v8](https://lore.kernel.org/all/20260515174017.3962168-1-sanjayembedded@gmail.com/)
-- [Mainline commit dcc80f2](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=dcc80f2fdff721ced4ea1ef7a3ea43f3fbe0b27a)
-- [Mainline commit a9ecd9a](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=a9ecd9a121752f2d7bb69da264bda65b6b6e6c6e)
-- [Mainline commit eedf7602](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=eedf7602fbd929e97e0c480da501dc7a34beb2a8)
-- [Mainline commit 74c39233](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=74c3923344c6ad4b7199948d54dc947504c39483)
 
-(Add merged commits once available.)
+## Metadata
 
-(Patchwork links if applicable.)
+| Item | Value |
+|------|-------|
+| Last Verified | 2026-08-23 |
+| Repository Branch | enhancement |
+| Documentation Role | Long-running driver modernization workstream |
