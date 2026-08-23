@@ -464,9 +464,8 @@ If starting this work today, I would:
 
 ## Related Learning
 
-- [Review Process](../learning/review-process.md)
-
----
+- [Mentorship growth](../mentorship-growth.md)
+- [Upstream review process](../upstream-review-process.md)
 
 ## References
 

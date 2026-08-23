@@ -27,7 +27,7 @@ The complete work therefore covered ten HID-IIO driver changes across two relate
 | Follow-up Patch Count | 3 |
 | Total Logical Changes | 10 |
 | Revisions | Initial v1 → v2 + follow-up v1 |
-| Status | Applied in linux-next / IIO development flow |
+| Status | Applied in linux-next |
 | Main Maintainer | Jonathan Cameron |
 | Reviewers | Jonathan Cameron, Andy Shevchenko, Maxwell Doose, David Lechner |
 | Primary Change | `unsigned` / `unsigned int` → `u32` |

@@ -216,18 +216,18 @@ The HID-IIO area was evolving quickly during this period.
 
 Other work had already landed, including:
 
-* `usage_id` type unification;
-* common device handling;
-* devm-related changes.
+- `usage_id` type unification;
+- common device handling;
+- devm-related changes.
 
 Therefore, each new revision needed to be based on the current `iio/testing` state.
 
 This avoids:
 
-* duplicate changes;
-* stale patches;
-* conflicts;
-* unnecessary review of changes already accepted elsewhere.
+- duplicate changes;
+- stale patches;
+- conflicts;
+- unnecessary review of changes already accepted elsewhere.
 
 ---
 
@@ -269,12 +269,12 @@ This avoids:
 
 The supplied linux-next commits are:
 
-* `cff496bda5128dd9cf7a38fc2933440ee58b8ad1`
-* `d9290c908d6f31bcdf79c1fec9b7287cf65df19b`
-* `0c50c9e3b2a4acb2b5b238ba58537f5525532527`
-* `a30824bbfb22f890df7e92448522b696c62ce965`
-* `636deb551c2da89e798b2057d417be86ab9a3efc`
-* `2e2f2de7532cbbc2269de8be20ec709606c6e79b`
+- `cff496bda5128dd9cf7a38fc2933440ee58b8ad1`
+- `d9290c908d6f31bcdf79c1fec9b7287cf65df19b`
+- `0c50c9e3b2a4acb2b5b238ba58537f5525532527`
+- `a30824bbfb22f890df7e92448522b696c62ce965`
+- `636deb551c2da89e798b2057d417be86ab9a3efc`
+- `2e2f2de7532cbbc2269de8be20ec709606c6e79b`
 
 > The exact mapping between these six integration commits and the final v3 two-patch Lore submission should be preserved once the commit subjects are recorded. The repository should not imply a 6-patch v3 series simply because linux-next contains six commits.
 
@@ -282,14 +282,14 @@ The supplied linux-next commits are:
 
 ## Key Lessons Learned
 
-* **Do not optimize for patch count. Optimize for logical reviewability.**
-* Not every formatting change deserves its own patch.
-* Consolidate mechanical churn when it does not provide independent review value.
-* Separate style cleanup from changes involving resource ownership.
-* Understand the actual owner of a devres-managed resource before changing the `struct device`.
-* Rebase against the current subsystem development branch before preparing a new revision.
-* Remove changes that have already landed through another series.
-* A series shrinking from 11 patches to 2 can represent improved engineering quality rather than lost work.
+- **Do not optimize for patch count. Optimize for logical reviewability.**
+- Not every formatting change deserves its own patch.
+- Consolidate mechanical churn when it does not provide independent review value.
+- Separate style cleanup from changes involving resource ownership.
+- Understand the actual owner of a devres-managed resource before changing the `struct device`.
+- Rebase against the current subsystem development branch before preparing a new revision.
+- Remove changes that have already landed through another series.
+- A series shrinking from 11 patches to 2 can represent improved engineering quality rather than lost work.
 
 ---
 
@@ -297,20 +297,20 @@ The supplied linux-next commits are:
 
 If starting this work today, I would:
 
-* Search the current `iio/testing` tree before preparing the initial series.
-* Separate pure formatting cleanup from resource-management changes from the beginning.
-* Group related formatting fixes where they do not have independent review value.
-* Verify devres ownership before changing the device argument.
-* Re-run repository-wide searches after each related HID-IIO series lands.
-* Prefer a small, clearly justified series over preserving a large initial patch set.
+- Search the current `iio/testing` tree before preparing the initial series.
+- Separate pure formatting cleanup from resource-management changes from the beginning.
+- Group related formatting fixes where they do not have independent review value.
+- Verify devres ownership before changing the device argument.
+- Re-run repository-wide searches after each related HID-IIO series lands.
+- Prefer a small, clearly justified series over preserving a large initial patch set.
 
 ---
 
 ## Related Series
 
-* [Series 008 – HID-IIO devm API and Resource-Management Modernization](series-008-hid-iio-devm-workstream.md)
-* [Series 010 – HID-IIO Callback Setup and Device Exposure Ordering](series-010-hid-iio-callback-ordering.md)
-* [Series 011 – HID-IIO `usage_id` Type Unification](series-011-hid-iio-usage-id.md)
+- [Series 008 – HID-IIO devm API and Resource-Management Modernization](series-008-hid-iio-devm-workstream.md)
+- [Series 010 – HID-IIO Callback Setup and Device Exposure Ordering](series-010-hid-iio-callback-ordering.md)
+- [Series 011 – HID-IIO `usage_id` Type Unification](series-011-hid-iio-usage-id.md)
 
 ### Workstream Relationship
 
@@ -337,17 +337,15 @@ HID-IIO modernization
 
 ### Lore
 
-* [v1 – 11 patches](https://lore.kernel.org/all/20260616-15-jun-hid-iio-alignment-v1-0-0cd544286575@gmail.com/)
-* [v2 – 6 patches](https://lore.kernel.org/all/20260702-15-jun-hid-iio-alignment-v2-0-b87f01f5efbc@gmail.com/)
-* [v3 – 2 patches](https://lore.kernel.org/all/20260707-15-jul-hid-iio-alignment-v3-0-8791574ad0fe@gmail.com/)
+- [v1 – 11 patches](https://lore.kernel.org/all/20260616-15-jun-hid-iio-alignment-v1-0-0cd544286575@gmail.com/)
+- [v2 – 6 patches](https://lore.kernel.org/all/20260702-15-jun-hid-iio-alignment-v2-0-b87f01f5efbc@gmail.com/)
+- [v3 – 2 patches](https://lore.kernel.org/all/20260707-15-jul-hid-iio-alignment-v3-0-8791574ad0fe@gmail.com/)
 
 ### linux-next
 
-* [cff496bda5128dd9cf7a38fc2933440ee58b8ad1](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=cff496bda5128dd9cf7a38fc2933440ee58b8ad1)
-* [d9290c908d6f31bcdf79c1fec9b7287cf65df19b](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=d9290c908d6f31bcdf79c1fec9b7287cf65df19b)
-* [0c50c9e3b2a4acb2b5b238ba58537f5525532527](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=0c50c9e3b2a4acb2b5b238ba58537f5525532527)
-* [a30824bbfb22f890df7e92448522b696c62ce965](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=a30824bbfb22f890df7e92448522b696c62ce965)
-* [636deb551c2da89e798b2057d417be86ab9a3efc](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=636deb551c2da89e798b2057d417be86ab9a3efc)
-* [2e2f2de7532cbbc2269de8be20ec709606c6e79b](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=2e2f2de7532cbbc2269de8be20ec709606c6e79b)
-
-````
+- [cff496bda5128dd9cf7a38fc2933440ee58b8ad1](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=cff496bda5128dd9cf7a38fc2933440ee58b8ad1)
+- [d9290c908d6f31bcdf79c1fec9b7287cf65df19b](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=d9290c908d6f31bcdf79c1fec9b7287cf65df19b)
+- [0c50c9e3b2a4acb2b5b238ba58537f5525532527](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=0c50c9e3b2a4acb2b5b238ba58537f5525532527)
+- [a30824bbfb22f890df7e92448522b696c62ce965](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=a30824bbfb22f890df7e92448522b696c62ce965)
+- [636deb551c2da89e798b2057d417be86ab9a3efc](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=636deb551c2da89e798b2057d417be86ab9a3efc)
+- [2e2f2de7532cbbc2269de8be20ec709606c6e79b](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=2e2f2de7532cbbc2269de8be20ec709606c6e79b)
