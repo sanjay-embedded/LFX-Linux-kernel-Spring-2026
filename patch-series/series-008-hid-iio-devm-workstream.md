@@ -10,8 +10,6 @@ Rather than carrying the large v4 series forward, v5 was reorganized around the 
 
 The resulting workstream demonstrates the transition from a mechanical cleanup into a broader driver resource-management modernization effort and, importantly, the use of review feedback to control series scope.
 
----
-
 ## Quick Facts
 
 | Item | Details |
@@ -27,9 +25,8 @@ The resulting workstream demonstrates the transition from a mechanical cleanup i
 | Final v5 Scope | Common device-managed HID sensor API |
 | Maintainer | Jonathan Cameron |
 | Primary Area | `drivers/iio/common/hid-sensors/` and HID-IIO drivers |
-| Status | Active / split into independent series |
-
----
+| Status | Under Review |
+| Last Verified | 2026-08-23 |
 
 ## Background
 
@@ -55,11 +52,7 @@ convert HID-IIO drivers
 modernize resource ownership
 ```
 
----
-
 ## Initial Objective
-
-### v1
 
 The initial 10-patch series focused on:
 
@@ -69,208 +62,33 @@ The initial 10-patch series focused on:
 
 The original submission described the change as mechanical and without functional impact.
 
----
-
-## Review-Driven Direction Change
-
-During review, Andy Shevchenko pointed out that the unused argument was retained for consistency with related APIs and rejected the initial approach as a standalone change.
-
-The discussion clarified that removing the argument made more sense as part of the larger devm conversion.
-
-Jonathan Cameron subsequently suggested showing the complete devm wrapper approach as a precursor and emphasized that the series should remain applicable one patch at a time without breaking the build.
-
-This became the key turning point in the workstream.
-
----
-
-## Revision Evolution
+## Technical Evolution
 
 ### v1 – Remove redundant `iio_dev` argument
 
-**10 patches**
-
 The series focused on the common API and all affected HID-IIO callers.
-
-The main idea was:
-
-```text
-hid_sensor_remove_trigger(indio_dev, attrb)
-                ↓
-hid_sensor_remove_trigger(attrb)
-```
-
-This was intended as preparation for future devm-based trigger management.
-
----
 
 ### v2 – Introduce the devm API
 
-**4 patches**
-
 The series was reframed around introducing a device-managed HID sensor setup/cleanup API.
-
-The focus shifted from changing the existing API in isolation to providing a reusable managed-resource abstraction.
-
----
 
 ### v3 – Common API + initial conversions
 
-**9 patches**
-
-The series expanded to include:
-
-- common devm API;
-- redundant argument removal;
-- initial driver conversions;
-- common device handling;
-- supporting cleanup.
-
-The work was now clearly becoming a reusable infrastructure change rather than a single cleanup.
-
----
+The series expanded to include the common devm API, redundant argument removal, initial driver conversions, common device handling and supporting cleanup.
 
 ### v4 – Broad HID-IIO modernization
 
-**36 patches**
+The series expanded to 36 patches and combined several logical categories:
 
-The series expanded substantially and combined several logical categories.
+- basic coding-style cleanup;
+- common device handling;
+- API modification;
+- devm API introduction;
+- driver conversions.
 
-#### Basic cleanup
+### v5 – Major restructuring
 
-- missing blank lines;
-- `unsigned` → `u32`;
-- parenthesis alignment.
-
-#### Common device handling
-
-Several drivers were converted to use a common device for devres.
-
-Additional drivers introduced local `struct device *` handling.
-
-#### Common API
-
-The redundant `iio_dev` argument was removed from the common trigger cleanup interface.
-
-#### Device-managed trigger cleanup
-
-Multiple HID-IIO drivers were converted from explicit:
-
-```text
-hid_sensor_remove_trigger()
-```
-
-to device-managed trigger cleanup.
-
-The affected driver groups included:
-
-- gyro;
-- humidity;
-- light;
-- magnetometer;
-- orientation;
-- position;
-- pressure;
-- temperature;
-- proximity.
-
-The v4 series therefore combined common infrastructure, cleanup, and repeated driver conversions into one large submission.
-
----
-
-## v4 Scope
-
-The 36-patch v4 series contained several distinct logical groups:
-
-```text
-Basic cleanup
-      +
-Common device handling
-      +
-API modification
-      +
-devm API introduction
-      +
-Driver conversions
-```
-
-This broad scope made the series difficult to review and independently apply.
-
----
-
-## v5 – Major Restructuring
-
-**13 patches**
-
-Instead of carrying the 36-patch v4 series forward, the work was reorganized.
-
-The v5 series retained the focused common devm API work while related driver conversions and cleanup were moved into separate series.
-
-The resulting structure became:
-
-```text
-                 HID-IIO modernization
-                         │
-                    v4: 36 patches
-                         │
-          ┌──────────────┼──────────────┐
-          │              │              │
-      cleanup       common devm     driver
-                     API           conversions
-                         │              │
-                         ↓              ↓
-                    v5: 13       independent
-                    patches       child series
-```
-
-This was not simply a reduction from 36 to 13 patches.
-
-It was a change in the architecture of the contribution itself.
-
----
-
-## Engineering Scope
-
-### Common device-managed API
-
-The central contribution is the introduction of reusable device-managed HID sensor setup/cleanup infrastructure.
-
-The objective is to make resource ownership follow the device lifecycle and reduce explicit teardown plumbing in individual drivers.
-
----
-
-### Common `struct device` handling
-
-Several drivers were converted to use the appropriate common device for devres operations.
-
-This makes the ownership of device-managed resources explicit and consistent.
-
----
-
-### Trigger cleanup
-
-The original redundant `iio_dev` argument was removed as part of the broader devm conversion.
-
-The eventual direction is:
-
-```text
-manual setup
-    +
-manual remove
-        ↓
-device-managed setup
-    +
-automatic cleanup
-```
-
----
-
-### Driver conversions
-
-The v4 series demonstrated that the common API could be adopted by a large number of HID-IIO drivers.
-
-Rather than retaining all of these conversions in the parent series, v5 moved them toward independent follow-up submissions.
-
----
+The v5 series retained the focused common devm API work while driver-specific conversions and related cleanup were moved into independent series.
 
 ## Review Evolution
 
@@ -280,103 +98,35 @@ Andy Shevchenko questioned removing the unused `iio_dev` argument independently 
 
 This established that an apparently redundant parameter can still have an interface-design purpose.
 
----
-
 ### Devm design
 
-The discussion moved toward introducing:
-
-```text
-devm_hid_sensor_setup_trigger()
-```
-
-with cleanup registered through the device-managed resource framework.
-
-This made the original argument removal a supporting change rather than the primary objective.
-
----
+The discussion moved toward introducing a reusable device-managed setup/cleanup API. The original argument removal became a supporting change rather than the primary objective.
 
 ### Patch independence
 
-Jonathan Cameron emphasized that a series should be applicable one patch at a time without breaking anything.
-
-This became particularly important as the work expanded.
-
-The v4 series demonstrated why combining infrastructure, cleanup and driver conversions into one large series makes independent application more difficult.
-
----
+Jonathan Cameron emphasized that a series should be applicable one patch at a time without breaking anything. This became particularly important as the work expanded.
 
 ### Series scope
 
-The eventual v5 restructuring separated:
-
-```text
-common infrastructure
-```
-
-from:
-
-```text
-driver adoption
-```
-
-This reduced review complexity and allowed maintainers to evaluate the API independently from the many consumer conversions.
-
----
-
-## Review Summary
-
-| Reviewer | Main Contribution |
-|----------|-------------------|
-| **Jonathan Cameron** | Guided the transition toward a common devm API, emphasized patch independence, and drove the restructuring into reviewable units. |
-| **Andy Shevchenko** | Challenged the initial redundant-argument removal, highlighted API consistency, and provided guidance on the proper scope of the cleanup. |
-| **David Lechner** | Participated in review of the common API and HID-IIO driver changes. |
-| **Christophe JAILLET** | Reviewed individual driver conversion details. |
-| **Srinivas Pandruvada** | Provided HID sensor subsystem context and review input. |
-
----
+The v5 restructuring separated common infrastructure from driver adoption, reducing review complexity and allowing maintainers to evaluate the API independently from consumer conversions.
 
 ## Interesting Engineering Discussions
 
 ### 1. Redundant does not always mean removable
 
-The `iio_dev` argument was technically unused by the cleanup implementation, but its presence was consistent with related APIs.
-
-This demonstrated that API design must consider consistency and future usage, not only whether a parameter is currently referenced.
-
----
+An unused parameter can still serve API consistency. Interface design must consider related APIs and subsystem conventions, not only whether a parameter is locally referenced.
 
 ### 2. Cleanup can be preparation for infrastructure
 
-The initial argument-removal patch was not valuable enough by itself.
-
-Its real value emerged when it became part of the larger devm API design.
-
----
+The initial argument-removal change gained clearer value when incorporated into a larger devm API design.
 
 ### 3. Common infrastructure should be separated from consumers
 
-The v4 series demonstrated the difficulty of combining:
-
-```text
-API introduction
-+
-API adoption
-+
-driver cleanup
-```
-
-The v5 restructuring separated the common infrastructure from individual driver conversions.
-
----
+Combining API introduction, adoption and driver cleanup in one large series makes independent application and review harder. The v5 restructuring corrected this.
 
 ### 4. Large series should evolve with review
 
-The series grew from 10 patches to 36 patches as additional opportunities were identified.
-
-Rather than defending the large scope, the final revision reduced the parent series to 13 patches and moved related work into independent submissions.
-
----
+The series grew from 10 to 36 patches as additional opportunities were identified, then was reduced to a focused parent series with independent follow-ups.
 
 ## Revision Timeline
 
@@ -388,62 +138,40 @@ Rather than defending the large scope, the final revision reduced the parent ser
 | **v4** | 36 | Expanded into broad HID-IIO cleanup, common device handling, API introduction and driver conversions. |
 | **v5** | 13 | Restructured into a focused common devm API series; related driver conversions moved to independent series. |
 
----
-
-## Parent / Child Workstream Structure
-
-This series should be treated as the **parent workstream**.
-
-| Work Item | Relationship |
-|-----------|--------------|
-| Original redundant `iio_dev` argument series | Starting point |
-| HID sensor devm API | **Parent/common infrastructure** |
-| Individual HID-IIO driver conversions | Child series |
-| Additional HID-IIO cleanup | Related child series |
-| Remaining conversions | Follow-up work |
-
-The child series should receive their own repository entries once their Lore history and final outcomes are documented.
-
----
-
-## Current Status
+## Final / Current Outcome
 
 | Item | Status |
 |------|--------|
 | Current Revision | v5 |
-| Final v5 Patches | 13 |
-| Parent Series | Active / under review |
+| Patch Count | 13 |
+| Status | Under Review |
 | Common API | Focused parent work |
 | Driver Conversions | Split into independent series |
-| Mainline | Track parent and child series separately |
-| Overall State | Active upstream workstream |
+| Mainline | Not yet confirmed |
 
----
+## Why This Series Matters
+
+This workstream demonstrates that upstream modernization is not simply about converting APIs. The contribution evolved from an apparently small cleanup into infrastructure design, resource ownership reasoning, and deliberate separation of common framework work from consumer-driver changes.
 
 ## Key Lessons Learned
 
 - An apparently redundant API parameter may exist for interface consistency.
-- Infrastructure changes should be separated from their many consumers when possible.
+- Infrastructure changes should be separated from their consumers when possible.
 - A large cleanup series should be continuously evaluated for logical boundaries.
 - A series should remain independently applicable patch by patch.
 - Common devm infrastructure is often better reviewed separately from driver conversions.
-- Scope reduction after review is a sign of improved patch organization, not failure.
-- Related driver conversions can continue independently once the common infrastructure is established.
+- Scope reduction after review is improved patch organization, not failure.
 - Upstream review can change the architecture of a contribution, not merely individual lines of code.
-
----
 
 ## Looking Back
 
 If starting this work today, I would:
 
 - Identify the intended devm API before proposing the redundant-argument cleanup.
-- Introduce the common infrastructure separately from driver conversions.
+- Introduce common infrastructure separately from driver conversions.
 - Avoid combining basic style cleanup with infrastructure and consumer changes.
 - Check patch independence continuously as the series grows.
 - Split driver conversions earlier once the common API is stable.
-
----
 
 ## Related Series
 
@@ -460,25 +188,17 @@ If starting this work today, I would:
 
 > Add links here as the independent HID-IIO driver conversion series are documented.
 
----
-
 ## Related Learning
 
-- [Review Process](../learning/review-process.md)
-
----
+- [Mentorship growth](../mentorship-growth.md)
+- [Upstream review process](../upstream-review-process.md)
 
 ## References
 
 ### Lore
 
 - [v1 – redundant `iio_dev` argument](https://www.spinics.net/lists/kernel/msg6174839.html)
+- [v4 – 36-patch HID-IIO modernization](https://lkml.iu.edu/2605.3/index.html)
 - v2 – devm API introduction
 - v3 – common API and initial conversions
-- [v4 – 36-patch HID-IIO modernization](https://lkml.iu.edu/2605.3/index.html)
 - v5 – focused devm API series
-
-### Related Discussions
-
-- [Andy Shevchenko – API consistency review](https://www.spinics.net/lists/kernel/msg6175082.html)
-- [Jonathan Cameron – patch independence and devm direction](https://www.spinics.net/lists/kernel/msg6176514.html)

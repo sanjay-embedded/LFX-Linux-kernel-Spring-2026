@@ -10,10 +10,6 @@ The work also had to be synchronized with the evolving IIO development tree beca
 
 The final series therefore represents a substantially more focused contribution than the original submission.
 
-The final work was subsequently applied through the IIO development flow and reached linux-next.
-
----
-
 ## Quick Facts
 
 | Item | Details |
@@ -27,28 +23,15 @@ The final work was subsequently applied through the IIO development flow and rea
 | Files | HID-IIO common code and driver files |
 | Maintainer | Jonathan Cameron |
 | Reviewers | Jonathan Cameron, Andy Shevchenko, Maxwell Doose and others |
-| Final Status | Applied in linux-next |
+| Status | Applied in linux-next |
 | Mainline | Not yet confirmed |
-
----
+| Last Verified | 2026-08-23 |
 
 ## Background
 
-The initial objective was to clean up warning and coding-style issues across HID-IIO drivers.
+The initial objective was to clean up warning and coding-style issues across HID-IIO drivers. The first submission combined missing blank lines, parenthesis alignment, NULL-check simplification, common `struct device` usage for devres and related cleanup.
 
-The first submission combined several categories:
-
-- missing blank lines;
-- parenthesis alignment;
-- NULL-check simplification;
-- common `struct device` usage for devres;
-- related HID-IIO cleanup.
-
-Although all changes were intended to be functionally neutral, review showed that the patches did not all have equal value.
-
-The series therefore evolved toward keeping only changes with clear independent engineering value.
-
----
+Although the changes were intended to be functionally neutral, review showed that the patches did not all have equal independent value. The series therefore evolved toward keeping only changes with clear review value.
 
 ## Initial Objective
 
@@ -62,292 +45,122 @@ The v1 series aimed to:
 
 The series was W=1 build-tested patch-by-patch.
 
----
-
-## Revision Evolution
+## Technical Evolution
 
 ### v1 – Broad 11-patch cleanup
 
-**11 patches**
+The initial series covered nine HID-IIO files and included formatting, style, NULL-check and devres-related cleanup.
 
-The initial series covered nine HID-IIO files and included:
+### Review – Scope and organization challenged
 
-- blank-line fixes;
-- parenthesis alignment;
-- `NULL` check simplification;
-- common device handling;
-- devres-related cleanup.
-
-The series intentionally described these as having no functional changes.
-
----
-
-### Review – Scope and patch organization challenged
-
-Reviewers identified that several patches were primarily formatting churn.
-
-Maxwell Doose specifically indicated that the formatting-only patches could be consolidated rather than maintained as many independent commits.
-
-This led to an important distinction:
-
-```text
-Tiny formatting change
-        ≠
-independently valuable patch
-````
-
-The series was therefore reduced instead of preserving the original patch count.
-
----
+Reviewers identified that several patches were primarily formatting churn. Maxwell Doose specifically recommended consolidating formatting-only work rather than preserving many independent commits.
 
 ### v2 – Reduced 6-patch series
 
-**6 patches**
-
-The second revision removed or consolidated several style-only changes.
-
-The remaining changes were more focused on cleanup with clearer review value.
-
-The series was also rebased against the evolving IIO development tree.
-
-This was important because related HID-IIO changes had already been applied independently.
-
----
+Unnecessary style-only changes were removed or consolidated. The remaining patches had clearer independent value and the series was rebased against the evolving IIO development tree.
 
 ### v3 – Focused 2-patch series
 
-**2 patches**
-
 The final revision narrowed the series further to the remaining changes considered independently worthwhile.
 
-The v3 therefore represents the final focused form of the original cleanup rather than an attempt to preserve all 11 patches from v1.
+## Review Evolution
 
----
-
-## Why the Series Shrunk
+The important distinction became:
 
 ```text
-v1
-11 patches
-│
-├── formatting churn
-├── style cleanup
-├── NULL-check cleanup
-└── meaningful devres/device changes
-        ↓
-review
-        ↓
-v2
-6 patches
-│
-├── unnecessary churn removed
-└── useful changes retained
-        ↓
-rebase + further review
-        ↓
-v3
-2 patches
-│
-└── focused remaining changes
+Formatting churn
+        ≠
+independently valuable engineering change
 ```
 
-The reduction is itself an important part of the contribution history.
+The review also reinforced that resource-ownership changes deserve separate treatment from purely stylistic cleanup.
 
----
-
-## Important Engineering Discussion
+## Interesting Engineering Discussions
 
 ### 1. Patch count is not the goal
 
-The original 11-patch series was not valuable simply because it contained many changes.
-
-Review demonstrated that some changes were better consolidated.
-
-The final two-patch series was therefore stronger than the original 11-patch submission.
-
----
+A larger patch count does not imply a stronger contribution. The final two-patch series was more focused and reviewable than the initial 11-patch submission.
 
 ### 2. Formatting churn vs. engineering value
 
-The series contained both:
-
-```text
-Formatting / style
-```
-
-and:
-
-```text
-Resource ownership / devres
-```
-
-The latter has greater engineering significance because it changes which device owns the managed resource.
-
-For example, using the common HID platform device as the devres owner can be more meaningful than merely changing whitespace or alignment.
-
----
+The series contained both style cleanup and changes involving resource ownership. The latter requires more technical reasoning because it affects lifecycle semantics.
 
 ### 3. Correct devres ownership
 
-One important example involved changing devres ownership from the IIO device to the HID platform device.
+One important example changed devres ownership from the IIO device to the HID platform device. The correct `struct device` must be selected based on actual resource ownership rather than applying a mechanical conversion.
 
-Conceptually:
+### 4. Keep synchronized with the subsystem tree
 
-```text
-Before:
-
-devm_*(&indio_dev->dev, ...)
-
-
-After:
-
-devm_*(&pdev->dev, ...)
-```
-
-The correct choice depends on which device actually owns the resource.
-
-This reinforced that devm conversions should not be performed mechanically.
-
----
-
-### 4. Keep the series synchronized with the subsystem tree
-
-The HID-IIO area was evolving quickly during this period.
-
-Other work had already landed, including:
-
-* `usage_id` type unification;
-* common device handling;
-* devm-related changes.
-
-Therefore, each new revision needed to be based on the current `iio/testing` state.
-
-This avoids:
-
-* duplicate changes;
-* stale patches;
-* conflicts;
-* unnecessary review of changes already accepted elsewhere.
-
----
-
-## Review Summary
-
-| Reviewer             | Main Contribution                                                                                  |
-| -------------------- | -------------------------------------------------------------------------------------------------- |
-| **Maxwell Doose**    | Identified formatting patches as excessive churn and recommended consolidation.                    |
-| **Andy Shevchenko**  | Provided coding-style and cleanup guidance and reinforced avoiding unnecessary mechanical changes. |
-| **Jonathan Cameron** | Guided the final scope, subsystem synchronization and grouping of useful changes.                  |
-
----
+The HID-IIO area was evolving during this work. Related changes had already landed, so each revision needed to be based on current `iio/testing` state to avoid duplicate or stale patches.
 
 ## Revision Timeline
 
-| Revision | Patches | Major Evolution                                                      |
-| -------- | ------- | -------------------------------------------------------------------- |
-| **v1**   | 11      | Broad HID-IIO warning and coding-style cleanup.                      |
-| **v2**   | 6       | Reduced formatting churn and synchronized with the current IIO tree. |
-| **v3**   | 2       | Final focused series containing the remaining worthwhile changes.    |
+| Revision | Patches | Major Evolution |
+|----------|---------|-----------------|
+| **v1** | 11 | Broad HID-IIO warning and coding-style cleanup. |
+| **v2** | 6 | Reduced formatting churn and synchronized with the current IIO tree. |
+| **v3** | 2 | Final focused series containing the remaining worthwhile changes. |
 
----
+## Final / Current Outcome
 
-## Final Outcome
+| Item | Status |
+|------|--------|
+| Latest Revision | v3 |
+| Initial Patch Count | 11 |
+| Final Patch Count | 2 |
+| Mainline | Not yet confirmed |
+| linux-next | Applied |
+| Status | Applied in linux-next |
+| Last Verified | 2026-08-23 |
 
-| Item                | Status                                              |
-| ------------------- | --------------------------------------------------- |
-| Latest Revision     | v3                                                  |
-| Initial Patch Count | 11                                                  |
-| Final Patch Count   | 2                                                   |
-| Mainline            | Not yet confirmed                                   |
-| linux-next          | ✅ Applied                                           |
-| Final State         | Focused v3 work reached linux-next                  |
-| Overall Result      | Successful scope reduction and upstream integration |
+## Why This Series Matters
 
----
-
-## linux-next Commits
-
-The supplied linux-next commits are:
-
-* `cff496bda5128dd9cf7a38fc2933440ee58b8ad1`
-* `d9290c908d6f31bcdf79c1fec9b7287cf65df19b`
-* `0c50c9e3b2a4acb2b5b238ba58537f5525532527`
-* `a30824bbfb22f890df7e92448522b696c62ce965`
-* `636deb551c2da89e798b2057d417be86ab9a3efc`
-* `2e2f2de7532cbbc2269de8be20ec709606c6e79b`
-
-> The exact mapping between these six integration commits and the final v3 two-patch Lore submission should be preserved once the commit subjects are recorded. The repository should not imply a 6-patch v3 series simply because linux-next contains six commits.
-
----
+The series demonstrates that upstream quality is not measured by how many mechanical changes can be submitted. Review-driven scope reduction can produce a smaller contribution with clearer purpose, lower review overhead and stronger technical value.
 
 ## Key Lessons Learned
 
-* **Do not optimize for patch count. Optimize for logical reviewability.**
-* Not every formatting change deserves its own patch.
-* Consolidate mechanical churn when it does not provide independent review value.
-* Separate style cleanup from changes involving resource ownership.
-* Understand the actual owner of a devres-managed resource before changing the `struct device`.
-* Rebase against the current subsystem development branch before preparing a new revision.
-* Remove changes that have already landed through another series.
-* A series shrinking from 11 patches to 2 can represent improved engineering quality rather than lost work.
-
----
+- Do not optimize for patch count; optimize for logical reviewability.
+- Not every formatting change deserves its own patch.
+- Consolidate mechanical churn when it does not provide independent review value.
+- Separate style cleanup from resource ownership changes.
+- Understand the actual owner of a devres-managed resource before changing the device argument.
+- Rebase against the current subsystem development branch before preparing a new revision.
+- Remove changes that have already landed through another series.
 
 ## Looking Back
 
 If starting this work today, I would:
 
-* Search the current `iio/testing` tree before preparing the initial series.
-* Separate pure formatting cleanup from resource-management changes from the beginning.
-* Group related formatting fixes where they do not have independent review value.
-* Verify devres ownership before changing the device argument.
-* Re-run repository-wide searches after each related HID-IIO series lands.
-* Prefer a small, clearly justified series over preserving a large initial patch set.
-
----
+- Search the current `iio/testing` tree before preparing the initial series.
+- Separate pure formatting cleanup from resource-management changes from the beginning.
+- Verify devres ownership before changing the device argument.
+- Re-run repository-wide searches after related HID-IIO series land.
+- Prefer a small, clearly justified series over preserving a large initial patch set.
 
 ## Related Series
 
-* [Series 008 – HID-IIO devm API and Resource-Management Modernization](series-008-hid-iio-devm-workstream.md)
-* [Series 010 – HID-IIO Callback Setup and Device Exposure Ordering](series-010-hid-iio-callback-ordering.md)
-* [Series 011 – HID-IIO `usage_id` Type Unification](series-011-hid-iio-usage-id.md)
+- [Series 008 – HID-IIO devm API and Resource-Management Modernization](series-008-hid-iio-devm-workstream.md)
+- [Series 010 – HID-IIO Callback Setup and Device Exposure Ordering](series-010-hid-iio-callback-ordering.md)
+- [Series 011 – HID-IIO `usage_id` Type Unification](series-011-hid-iio-usage-id.md)
 
-### Workstream Relationship
+## Related Learning
 
-```text
-HID-IIO modernization
-        |
-        +-- Series 008
-        |   devm infrastructure
-        |
-        +-- Series 010
-        |   callback/device ordering
-        |
-        +-- Series 011
-        |   usage_id API type
-        |
-        +-- Series 012
-            coding-style + warning cleanup
-            + devres ownership
-```
-
----
+- [Mentorship growth](../mentorship-growth.md)
+- [Upstream review process](../upstream-review-process.md)
 
 ## References
 
 ### Lore
 
-* [v1 – 11 patches](https://lore.kernel.org/all/20260616-15-jun-hid-iio-alignment-v1-0-0cd544286575@gmail.com/)
-* [v2 – 6 patches](https://lore.kernel.org/all/20260702-15-jun-hid-iio-alignment-v2-0-b87f01f5efbc@gmail.com/)
-* [v3 – 2 patches](https://lore.kernel.org/all/20260707-15-jul-hid-iio-alignment-v3-0-8791574ad0fe@gmail.com/)
+- [v1 – 11 patches](https://lore.kernel.org/all/20260616-15-jun-hid-iio-alignment-v1-0-0cd544286575@gmail.com/)
+- [v2 – 6 patches](https://lore.kernel.org/all/20260702-15-jun-hid-iio-alignment-v2-0-b87f01f5efbc@gmail.com/)
+- [v3 – 2 patches](https://lore.kernel.org/all/20260707-15-jul-hid-iio-alignment-v3-0-8791574ad0fe@gmail.com/)
 
 ### linux-next
 
-* [cff496bda5128dd9cf7a38fc2933440ee58b8ad1](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=cff496bda5128dd9cf7a38fc2933440ee58b8ad1)
-* [d9290c908d6f31bcdf79c1fec9b7287cf65df19b](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=d9290c908d6f31bcdf79c1fec9b7287cf65df19b)
-* [0c50c9e3b2a4acb2b5b238ba58537f5525532527](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=0c50c9e3b2a4acb2b5b238ba58537f5525532527)
-* [a30824bbfb22f890df7e92448522b696c62ce965](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=a30824bbfb22f890df7e92448522b696c62ce965)
-* [636deb551c2da89e798b2057d417be86ab9a3efc](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=636deb551c2da89e798b2057d417be86ab9a3efc)
-* [2e2f2de7532cbbc2269de8be20ec709606c6e79b](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=2e2f2de7532cbbc2269de8be20ec709606c6e79b)
-
-````
+- [cff496bda5128dd9cf7a38fc2933440ee58b8ad1](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=cff496bda5128dd9cf7a38fc2933440ee58b8ad1)
+- [d9290c908d6f31bcdf79c1fec9b7287cf65df19b](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=d9290c908d6f31bcdf79c1fec9b7287cf65df19b)
+- [0c50c9e3b2a4acb2b5b238ba58537f5525532527](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=0c50c9e3b2a4acb2b5b238ba58537f5525532527)
+- [a30824bbfb22f890df7e92448522b696c62ce965](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=a30824bbfb22f890df7e92448522b696c62ce965)
+- [636deb551c2da89e798b2057d417be86ab9a3efc](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=636deb551c2da89e798b2057d417be86ab9a3efc)
+- [2e2f2de7532cbbc2269de8be20ec709606c6e79b](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=2e2f2de7532cbbc2269de8be20ec709606c6e79b)

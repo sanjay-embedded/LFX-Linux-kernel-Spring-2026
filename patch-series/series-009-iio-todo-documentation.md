@@ -8,8 +8,6 @@ The work was submitted as a single patch and refined through one review revision
 
 Although documentation-only, the change required understanding the current IIO resource-management model so that the TODO list would distinguish genuine remaining work from modernization opportunities already addressed by newer APIs and helpers.
 
----
-
 ## Quick Facts
 
 | Item | Details |
@@ -25,8 +23,7 @@ Although documentation-only, the change required understanding the current IIO r
 | Maintainer | Jonathan Cameron / IIO maintainers |
 | Status | Applied in linux-next |
 | Mainline | Not yet confirmed |
-
----
+| Last Verified | 2026-08-23 |
 
 ## Background
 
@@ -34,9 +31,7 @@ The IIO TODO documentation contained a typo and resource-management items that r
 
 The purpose of the update was not to introduce new driver functionality, but to keep the contributor roadmap aligned with the current state of IIO resource-management APIs and cleanup practices.
 
----
-
-## Objective
+## Initial Objective
 
 The contribution addressed:
 
@@ -45,71 +40,47 @@ The contribution addressed:
 - clearer description of remaining modernization opportunities;
 - alignment of the TODO list with current IIO resource-management practices.
 
----
+## Technical Evolution
 
-## Revision Evolution
+The contribution evolved through two revisions. The code change remained documentation-focused while the wording was refined for technical accuracy.
 
-| Revision | Major Evolution |
-|----------|-----------------|
+## Review Evolution
+
+The review focused primarily on documentation accuracy and wording rather than driver behavior. The important engineering consideration was ensuring that the TODO list distinguishes genuinely outstanding resource-management work from functionality already covered by newer IIO APIs and helpers.
+
+## Interesting Engineering Discussions
+
+An IIO TODO list is more than a list of old code that should eventually be changed. It serves as guidance for future contributors and therefore needs to describe the current preferred resource-management model accurately.
+
+This contribution connected the documentation with broader IIO modernization work involving `devm_*`, `cleanup.h`, `guard()` and IIO-specific cleanup helpers.
+
+## Revision Timeline
+
+| Revision | Evolution |
+|----------|-----------|
 | **v1** | Corrected the documentation typo and refined the resource-management TODO entries. |
 | **v2** | Incorporated review feedback and further refined the wording and accuracy of the TODO items. |
 
----
+## Final / Current Outcome
 
-## Review Summary
+| Item | Status |
+|------|--------|
+| Latest Revision | v2 |
+| Status | Applied in linux-next |
+| Mainline | Not yet confirmed |
+| linux-next Commit | `cae5bd202cfcac46762286591618b771c124727c` |
+| Last Verified | 2026-08-23 |
 
-The review focused primarily on documentation accuracy and wording rather than driver behavior.
+## Why This Series Matters
 
-The important engineering consideration was ensuring that the TODO list distinguishes between:
-
-- genuinely outstanding resource-management work;
-- functionality already covered by newer IIO APIs;
-- modernization opportunities that should not be described as functional defects.
-
----
-
-## Interesting Engineering Discussion
-
-An IIO TODO list is more than a list of old code that should eventually be changed.
-
-It serves as guidance for future contributors and therefore needs to describe the current preferred resource-management model accurately.
-
-This contribution connected the documentation with broader IIO modernization work involving:
-
-- `devm_*` APIs;
-- `cleanup.h`;
-- `guard()`;
-- IIO-specific cleanup helpers.
-
-As these APIs and practices evolve, the TODO documentation needs to evolve with them.
-
----
+The contribution demonstrates that upstream maintenance includes keeping subsystem documentation and contributor roadmaps aligned with current APIs. Accurate TODO guidance prevents future contributors from pursuing stale or already-solved modernization work.
 
 ## Key Lessons Learned
 
 - Subsystem TODO documentation must remain synchronized with current kernel APIs and practices.
 - Documentation changes can require technical understanding of the subsystem.
 - Modernization opportunities should not be presented as functional defects.
-- Stale TODO items can mislead future contributors and should be updated when the underlying implementation model changes.
 - Documentation is part of subsystem maintenance, not separate from upstream engineering.
-
----
-
-## Final Status
-
-| Item | Status |
-|------|--------|
-| Latest Revision | v2 |
-| Mainline | Not yet confirmed |
-| linux-next | ✅ Applied |
-| Current State | Applied in linux-next |
-| Contribution Type | Documentation / IIO maintenance guidance |
-
-### linux-next Commit
-
-`cae5bd202cfcac46762286591618b771c124727c`
-
----
 
 ## Looking Back
 
@@ -119,8 +90,6 @@ If starting this work today, I would:
 - Verify each TODO item against existing subsystem infrastructure.
 - Keep documentation language focused on contributor guidance rather than describing modernization as a defect.
 - Review related recent IIO cleanup work to ensure the TODO list remains current.
-
----
 
 ## Related Series
 
@@ -134,7 +103,10 @@ If starting this work today, I would:
 - [Series 007 – ADI IIO MAINTAINERS coverage](series-007-adi-iio-maintainers.md)
 - [Series 008 – HID-IIO devm workstream](series-008-hid-iio-devm-workstream.md)
 
----
+## Related Learning
+
+- [Mentorship growth](../mentorship-growth.md)
+- [Upstream review process](../upstream-review-process.md)
 
 ## References
 
