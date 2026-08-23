@@ -1,154 +1,109 @@
 # Series 004 – AD7173: Checkpatch & Coding Style Analysis
 
-## 1. Executive Summary
+## Executive Summary
 
-This series attempted to resolve coding-style and spelling issues reported by `checkpatch.pl` in the AD7173 ADC driver. During review, maintainers identified that one of the reported CamelCase warnings was not a driver issue but a limitation of `checkpatch.pl` in recognizing standard SI unit abbreviations. Rather than modifying technically correct code to satisfy tooling, the discussion concluded that improving the tool would be the better long-term solution. Although the series was not merged, it reinforced an important upstream engineering principle: developer judgment takes precedence over blindly following static analysis tools.
+This series investigated coding-style and spelling issues reported by `checkpatch.pl` in the AD7173 ADC driver. During review, maintainers identified that one reported CamelCase warning was caused by a limitation of `checkpatch.pl` in recognizing standard SI unit abbreviations rather than a defect in the driver.
 
----
+The series was therefore closed without further revisions. The key outcome was learning to validate automated-tool findings against kernel conventions and engineering intent before changing technically correct code.
 
-## 2. Project Overview
+## Quick Facts
 
 | Item | Details |
 |------|---------|
-| **Series** | iio: adc: ad7173: cleanup codestyle check and spell correct |
-| **Subsystem** | Industrial I/O (ADC) |
-| **Driver** | AD7173 |
-| **Duration** | April 2026 |
-| **Initial Submission** | 13 April 2026 |
-| **Final Revision** | v1 |
-| **Revisions** | 1 |
-| **Patch Count** | 3 |
-| **Status** | Closed after review |
+| Series | `iio: adc: ad7173: cleanup codestyle check and spell correct` |
+| Subsystem | Industrial I/O (IIO / ADC) |
+| Driver | AD7173 |
+| Initial Submission | 13 April 2026 |
+| Final Revision | v1 |
+| Patch Count | 3 |
+| Status | Closed |
+| Mainline | No |
+| linux-next | No |
 
----
+## Background
 
-## 3. Background
+The series started as a cleanup effort based on warnings and spelling issues reported by `checkpatch.pl`. The intention was to improve consistency with kernel coding conventions and reduce avoidable static-analysis noise.
 
-This series focused on improving code quality by addressing `checkpatch.pl` warnings, coding-style issues, and spelling corrections in the AD7173 driver. The intent was to align the driver more closely with kernel coding standards while removing minor issues reported by automated tooling.
+## Initial Objective
 
----
+- Investigate `checkpatch.pl` warnings in the driver.
+- Correct genuine coding-style and spelling issues.
+- Determine whether reported warnings represented actual kernel-code problems.
+- Keep the resulting series focused on changes with engineering value.
 
-## 4. Engineering Goals
+## Technical Evolution
 
-- Resolve `checkpatch.pl` warnings.
-- Improve coding style consistency.
-- Correct spelling mistakes.
-- Reduce static analysis noise.
-- Improve overall code readability.
+The initial three-patch series addressed coding-style and spelling findings. One warning concerned identifiers using standard SI notation such as `uV` and `C`.
 
----
+The review demonstrated that this particular warning did not represent an actual violation in the driver. Changing the identifier solely to satisfy the tool would have made the source less correct rather than more correct.
 
-## 5. Technical Evolution
+## Review Evolution
 
-### Phase 1 – Initial Cleanup
+The key review question became whether the reported warning was a genuine source-code problem or a limitation of the checking tool.
 
-- Submitted a three-patch cleanup series.
-- Addressed coding style and spelling issues.
-- Fixed warnings reported by `checkpatch.pl`.
+The conclusion was that the identifier was technically valid and that improving `checkpatch.pl` would be a better long-term solution than changing correct driver code.
 
----
+## Interesting Engineering Discussions
 
-### Phase 2 – Review Discussion
+- Static-analysis tools are valuable aids, but their warnings require engineering judgment.
+- Kernel coding conventions and domain-specific terminology take precedence over mechanical tool output.
+- Tooling defects can be more appropriate targets for improvement than technically correct source code.
+- Upstream review can prevent unnecessary churn by challenging the premise of a proposed cleanup.
 
-During review, maintainers identified that one reported CamelCase warning was caused by a limitation of `checkpatch.pl` rather than incorrect driver code.
-
-The identifier used standard SI notation (`uV`, `C`) and was technically correct.
-
----
-
-### Phase 3 – Conclusion
-
-Rather than changing correct code to satisfy tooling, the discussion concluded that the appropriate long-term solution would be improving `checkpatch.pl`.
-
-The series therefore concluded without further revisions.
-
----
-
-## 6. Review Summary
-
-| Reviewer | Key Feedback |
-|----------|--------------|
-| **Andy Shevchenko** | Explained that the CamelCase warning resulted from a limitation in `checkpatch.pl`, not an actual coding-style violation. Suggested improving the tool rather than changing valid identifiers. |
-| **Jonathan Cameron, David Lechner, Nuno Sá** | Participated in review of the cleanup series and subsystem discussion. |
-| **Author** | Acknowledged that improving tooling was preferable to modifying technically correct driver code. |
-
----
-
-## 7. Interesting Engineering Discussions
-
-- Static analysis tools are advisory rather than authoritative.
-- SI unit abbreviations (`uV`, `C`) are valid kernel terminology.
-- Tool limitations should not drive unnecessary source code changes.
-- Sometimes the correct contribution is to improve the development tools instead of the driver itself.
-
----
-
-## 8. Revision Timeline
+## Revision Timeline
 
 | Revision | Evolution |
-| -------- | --------- |
-| **v1** | Initial cleanup series submitted. Review determined that the reported issue originated from a `checkpatch.pl` limitation rather than a driver defect, so the series did not continue. |
+|----------|-----------|
+| v1 | Initial three-patch cleanup submitted and reviewed. The CamelCase warning was determined to be a `checkpatch.pl` limitation, so no further revision was pursued. |
 
----
-
-## 9. Final Status
+## Final / Current Outcome
 
 | Item | Status |
 |------|--------|
-| Mainline | ❌ Not merged |
-| linux-next | ❌ Not applied |
-| Latest Revision | v1 |
-| Outcome | Closed after review |
-| Reason | Tool limitation identified instead of a driver issue |
+| Final Revision | v1 |
+| Patch Count | 3 |
+| Mainline | Not merged |
+| linux-next | Not applied |
+| Final State | Closed after review |
+| Reason | Reported issue included a tooling limitation rather than a driver defect |
 
----
+## Why This Series Matters
 
-## 10. Key Lessons Learned
+This series is an important example of learning when **not** to change code. Upstream contribution is not about eliminating every warning mechanically; it is about understanding whether a warning reflects a real problem and whether a proposed change improves the kernel.
 
-- `checkpatch.pl` is a valuable guideline, but its warnings require engineering judgment.
-- Standards-compliant identifiers should not be changed solely to silence tooling.
-- Understanding the intent behind coding standards is more important than mechanically fixing warnings.
-- Upstream review may reveal opportunities to improve development tools rather than kernel code.
+## Key Lessons Learned
 
----
+- `checkpatch.pl` is guidance, not an authority that overrides engineering judgment.
+- Validate automated findings against subsystem conventions and technical correctness.
+- Do not modify standards-compliant identifiers merely to silence a warning.
+- A closed series can still produce an important upstream engineering lesson.
 
-## 11. Looking Back
+## Looking Back
 
-If revisiting this work today, I would:
+If starting this work today, I would first inspect the reported warning in the context of the subsystem and relevant kernel conventions, then determine whether a driver change, tooling improvement, or no change is the most appropriate outcome.
 
-- Investigate whether a reported warning reflects a genuine issue before preparing patches.
-- Validate automated tool output against subsystem conventions.
-- Consider contributing improvements to `checkpatch.pl` when appropriate.
-- Focus cleanup efforts on issues that improve code quality rather than only satisfying static analysis.
+## Related Series
 
----
+- [Series 000 – Exploratory cleanup.h](series-000-exploratory-cleanup-h.md)
+- [Series 001 – ST Sensors buffer reuse](series-001-st-sensors-buffer-reuse.md)
+- [Series 002 – SSP Sensors modernization](series-002-ssp-sensors-modernization.md)
+- [Series 003 – GC0310 clock modernization](series-003-gc0310-clock-modernization.md)
+- [Series 005 – MMA8452 modernization](series-005-mma8452-modernization.md)
 
-## 12. Related Journey
+## Related Learning
 
-- `journey/growth.md`
-- Previous Series:
-  - Series 000 – Exploratory cleanup.h conversions
-  - Series 001 – ST Sensors buffer reuse
-  - Series 002 – SSP Sensors modernization
-  - Series 003 – GC0310 Clock Modernization
+- [Mentorship growth](../mentorship-growth.md)
+- [Mentorship milestones](../mentorship-milestones.md)
+- [Upstream review process](../upstream-review-process.md)
 
----
+## References
 
-## 13. Related Learning
+- Review and discussion history is preserved in the Linux kernel mailing-list archives.
 
-- `learning/review-process.md`
+## Metadata
 
----
-
-## 14. References
-
-### Lore
-
-- Cover Letter (0/3)
-- Patch 1
-- Patch 2
-- Patch 3
-
-### Discussion
-
-- Andy Shevchenko review explaining the `checkpatch.pl` limitation.
+| Item | Value |
+|------|-------|
+| Last Verified | 2026-08-23 |
+| Repository Branch | enhancement |
+| Documentation Role | Tooling-vs-source-code judgment milestone |
