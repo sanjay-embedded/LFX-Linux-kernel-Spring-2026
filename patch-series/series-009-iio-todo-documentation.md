@@ -134,7 +134,10 @@ If starting this work today, I would:
 - [Series 007 – ADI IIO MAINTAINERS coverage](series-007-adi-iio-maintainers.md)
 - [Series 008 – HID-IIO devm workstream](series-008-hid-iio-devm-workstream.md)
 
----
+## Related Learning
+
+- [Mentorship growth](../mentorship-growth.md)
+- [Upstream review process](../upstream-review-process.md)
 
 ## References
 

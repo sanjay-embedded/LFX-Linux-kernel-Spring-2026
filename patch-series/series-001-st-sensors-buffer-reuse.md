@@ -1,10 +1,8 @@
 # Series 001 – iio: st_sensors: Drop temporary kmalloc() buffer and reuse buffer_data[]
 
-## Summary
+## Executive Summary
 
 This series refactored the ST Sensors core driver to reuse the driver's existing `buffer_data[]` field instead of allocating and freeing a temporary buffer on every read. The work originated from feedback received on the earlier exploratory cleanup series and evolved through three revisions before being accepted upstream.
-
----
 
 ## Quick Facts
 
@@ -18,9 +16,7 @@ This series refactored the ST Sensors core driver to reuse the driver's existing
 | Status | Merged |
 | Subsystem | Industrial I/O (IIO) |
 | Driver | ST Sensors |
-| File Modified | drivers/iio/common/st_sensors/st_sensors_core.c |
-
----
+| File Modified | `drivers/iio/common/st_sensors/st_sensors_core.c` |
 
 ## Background
 
@@ -28,17 +24,11 @@ The original exploratory cleanup series proposed adopting `cleanup.h` helpers ac
 
 This series applies that feedback by addressing the underlying design: instead of allocating a temporary buffer, the driver reuses its existing `buffer_data[]` field.
 
----
+## Initial Objective
 
-## Problem Statement
+Remove the per-read temporary allocation while preserving the existing driver behavior and simplifying the cleanup path.
 
-The driver allocated a temporary buffer during each read operation, copied data into it, and released it immediately afterwards.
-
-Although functionally correct, this introduced unnecessary allocation and cleanup overhead when an existing driver-owned buffer was already available.
-
----
-
-## Solution
+## Technical Evolution
 
 The implementation:
 
@@ -47,73 +37,52 @@ The implementation:
 - Simplified cleanup and return paths.
 - Reduced temporary resource management.
 
----
+## Review Evolution
 
-## Revision History
+Review feedback refined both the implementation and terminology. The final revision described `buffer_data[]` accurately as an existing driver-owned field and aligned declarations and cleanup with kernel conventions.
 
-### v2
+## Interesting Engineering Discussions
 
-- Split from the earlier cross-subsystem cleanup series.
-- Replaced temporary allocation with reuse of `buffer_data[]`.
+- Reuse an existing driver-owned resource before allocating another temporary resource.
+- Precise terminology in commit messages matters when describing ownership and lifetime.
+- Small, subsystem-focused changes are easier to review and maintain.
 
-### v3
+## Revision Timeline
 
-- Updated commit message following reviewer feedback.
-- Improved wording describing the reused buffer.
+| Revision | Evolution |
+|----------|-----------|
+| v2 | Split from the earlier cross-subsystem cleanup series and changed the design to reuse `buffer_data[]`. |
+| v3 | Updated commit-message wording following review. |
+| v4 | Refined terminology, declarations and cleanup logic; linked previous revisions. |
 
-### v4
+## Final / Current Outcome
 
-- Replaced "statically allocated" with "existing `buffer_data[]` field".
-- Moved variable declarations to follow kernel coding style.
-- Simplified remaining cleanup logic.
-- Added links to previous revisions.
+| Item | Status |
+|------|--------|
+| Final Revision | v4 |
+| Mainline | Merged |
+| Current Status | Accepted upstream |
+| Last Verified | 2026-08-23 |
 
----
-
-## Review Highlights
-
-### Andy Shevchenko
-
-Suggested simplifications and kernel coding style improvements.
-
-### Jonathan Cameron
-
-Provided functional and design guidance for the IIO subsystem.
-
-### David Lechner
-
-Requested more accurate terminology in the commit message and clarified ownership of `buffer_data[]`.
-
----
-
-## Outcome
-
-The patch was accepted after incorporating review feedback through four revisions.
-
-The final implementation focused on improving the underlying design rather than performing a mechanical API replacement.
-
----
-
-## Engineering Lessons
+## Key Lessons Learned
 
 - Prefer reusing existing driver-owned resources before introducing new allocations.
-- Review feedback often improves both implementation and commit message quality.
-- Precise terminology matters when describing kernel internals.
-- Small subsystem-focused changes are easier to review and maintain.
+- Review feedback can improve both implementation and commit-message accuracy.
+- Small subsystem-focused changes can be a strong starting point for upstream contribution.
 
----
+## Looking Back
 
-## Related Journey
+If starting this work today, I would still keep the change narrowly scoped around the underlying design improvement rather than treating it as a mechanical cleanup.
 
-See: `journey/growth.md`
+## Related Series
 
----
+- [Series 000 – Exploratory cleanup.h](series-000-exploratory-cleanup-h.md)
+- [Series 002 – SSP Sensors modernization](series-002-ssp-sensors-modernization.md)
 
 ## Related Learning
 
-See: `learning/review-process.md`
-
----
+- [Mentorship growth](../mentorship-growth.md)
+- [Upstream review process](../upstream-review-process.md)
 
 ## References
 

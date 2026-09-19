@@ -298,6 +298,12 @@ If starting this work today, I would:
 
 - [Series 008 – HID-IIO devm API and Resource-Management Modernization](series-008-hid-iio-devm-workstream.md)
 - [Series 009 – IIO TODO Documentation](series-009-iio-todo-documentation.md)
+- [Series 013 – HID Temperature Teardown Ordering](series-013-hid-temperature-teardown.md)
+
+## Related Learning
+
+- [Mentorship growth](../mentorship-growth.md)
+- [Upstream review process](../upstream-review-process.md)
 
 ### Workstream Relationship
 
